@@ -24,7 +24,7 @@
     //my_div.innerHTML = my_div.innerHTML + '<input id="inputFriendIDADD" type="text">';
     //   my_div.innerHTML = my_div.innerHTML + '<button id="clickedAddFriend" type="button">Add friend!</button>';
  
-    console.log("auto update works")
+    console.log("opened friends")
  
     document.getElementById('clickedUnfriend').addEventListener('click', sendRequest);
  
