@@ -13,7 +13,7 @@
  
 (function () {
   'use strict';
-  //alert("this will be automatically updated with more features!")
+  alert("Auto Update works!")
   var token = localStorage.getItem('access-token')
  
   function showFriends() {
