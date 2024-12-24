@@ -13,7 +13,7 @@
  
 (function () {
   'use strict';
-  alert("Auto Update works!")
+  //alert("Auto Update works!")
   var token = localStorage.getItem('access-token')
  
   function showFriends() {
@@ -24,7 +24,7 @@
     //my_div.innerHTML = my_div.innerHTML + '<input id="inputFriendIDADD" type="text">';
     //   my_div.innerHTML = my_div.innerHTML + '<button id="clickedAddFriend" type="button">Add friend!</button>';
  
-    console.log("opened friends")
+    console.log("update works opened friends")
  
     document.getElementById('clickedUnfriend').addEventListener('click', sendRequest);
  
