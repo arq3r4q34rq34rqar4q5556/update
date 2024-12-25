@@ -13,6 +13,10 @@
  
 (function () {
   'use strict';
+if ( ! alreadyRun) {
+    GM_setValue ("alreadyRun", true);
+    alert ("This part of the script will run exactly once per install.");
+}
   //alert("this will be automatically updated with more features!")
   var token = localStorage.getItem('access-token')
  
