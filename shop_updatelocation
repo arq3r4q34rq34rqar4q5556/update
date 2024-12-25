@@ -1,0 +1,1057 @@
+// ==UserScript==
+// @name         Blob.io - Shop, for web!
+// @namespace    https://discord.gg/N8cAjjJNmz
+// @version      2024-11-22
+// @description  try to take over the world!
+// @author       d123450789
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js
+// @match        *://blobgame.io/*
+// @icon         https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+//OPENS SHOP WHEN CLICKED
+
+var token = localStorage.getItem('access-token')
+
+
+function showShop() {
+    document.querySelectorAll("#modal > app-skins > div.body > div.left > ul > li.hidden").forEach(item => item.classList.replace("hidden", "show"));
+
+alert("Hello, this is an experimental shop for web!")
+console.log("opened shop")
+
+
+//UFO UFO UFO UFO UFO UFO UFO UFO SKIN
+const clickedPremium = document.querySelector("#modal > app-skins > div.body > div.left > ul > li.show").addEventListener("click", premiumClicked);
+    function premiumClicked(){
+
+
+        const buySkin = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(362) > img").addEventListener("click", buySkinUFO);
+        const buySkin2 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(352) > img").addEventListener("click", buySkinTigerPattern);
+        const buySkin3 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(167) > img").addEventListener("click", buySkinGreenMan);
+        const buySkin4 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(332) > img").addEventListener("click", buySkinSmileFace);
+        const buySkin5 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(198) > img").addEventListener("click", buySkinJellyblob);
+       /*
+        const buySkin6 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(48) > img").addEventListener("click", buySkinBlueberry);
+        const buySkin7 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(82) > img").addEventListener("click", buySkinCIA);
+        const buySkin8 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(307) > img").addEventListener("click", buySkinRocket);
+        const buySkin9 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(230) > img").addEventListener("click", buySkinMaple);
+        const buySkin10 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(154) > img").addEventListener("click", buySkinfrenchfries);
+        const buySkin11 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(2) > img").addEventListener("click", buySkinAcorn);
+        const buySkin12 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(346) > img").addEventListener("click", buySkinSunbath);
+        const buySkin13 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(116) > img").addEventListener("click", buySkinDiver);
+        const buySkin14 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(345) > img").addEventListener("click", buySkinStarfish);
+        const buySkin15 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(140) > img").addEventListener("click", buySkinFighter);
+        const buySkin16 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(335) > img").addEventListener("click", buySkinSonicboom);
+        const buySkin17 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(184) > img").addEventListener("click", buySkinHulk);
+        const buySkin18 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(369) > img").addEventListener("click", buySkinWackyegg);
+        const buySkin19 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(327) > img").addEventListener("click", buySkinSkullpirate);
+        const buySkin20 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(17) > img").addEventListener("click", buySkinArcher);
+        const buySkin21 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(333) > img").addEventListener("click", buySkinSnowman);
+        const buySkin22 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(124) > img").addEventListener("click", buySkinDrcosmos);
+        const buySkin23 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(257) > img").addEventListener("click", buySkinNybell);
+        const buySkin24 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(242) > img").addEventListener("click", buySkinMoonship);
+        const buySkin25 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(88) > img").addEventListener("click", buySkinCoolandroid);
+        const buySkin26 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(24) > img").addEventListener("click", buySkinBadger);
+        const buySkin27 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(185) > img").addEventListener("click", buySkinHungryshark);
+        const buySkin28 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(202) > img").addEventListener("click", buySkinJuicecan);
+        const buySkin29 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(199) > img").addEventListener("click", buySkinJellyface);
+        const buySkin30 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(156) > img").addEventListener("click", buySkinFrogfighter);
+        const buySkin31 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(138) > img").addEventListener("click", buySkinFaun);
+        const buySkin32 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(64) > img").addEventListener("click", buySkinCake);
+        const buySkin33 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(255) > img").addEventListener("click", buySkinNurse);
+        const buySkin34 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(128) > img").addEventListener("click", buySkinEaglealien);
+        const buySkin35 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(28) > img").addEventListener("click", buySkinBasketball);
+        const buySkin36 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(43) > img").addEventListener("click", buySkinBitter);
+        const buySkin37 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(123) > img").addEventListener("click", buySkinDroid);
+        const buySkin38 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(254) > img").addEventListener("click", buySkinNuclearr);
+        const buySkin39 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(161) > img").addEventListener("click", buySkinGhostchild);
+        const buySkin40 = document.querySelector("#modal > app-skins > div.body > div.right > div > div > div:nth-child(84) > img").addEventListener("click", buySkinCoil);
+
+*/
+
+//theres over 300 skins....
+
+
+
+
+
+
+
+
+
+        function buySkinUFO() {
+alert("Bought!")
+console.log("bought item ufo")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"249",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+    
+  },
+  dataType: "json"
+});
+}
+}
+
+}
+
+
+
+
+                            function buySkinGreenMan() {
+alert("Bought!")
+console.log("bought item greenman")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"256",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+    
+  },
+  dataType: "json"
+});
+}
+
+
+
+
+
+
+
+
+
+
+                function buySkinTigerPattern() {
+alert("Bought!")
+console.log("bought item tigerpattern")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"227",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+    
+  },
+  dataType: "json"
+});
+}
+
+
+
+                function buySkinSmileFace() {
+alert("Bought!")
+console.log("bought item smileface")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"280",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+    
+  },
+  dataType: "json"
+});
+}
+
+                function buySkinJellyblob() {
+alert("Bought!")
+console.log("bought item jellyblob")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"246",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+/*
+                function buySkinBlueberry() {
+alert("Bought!")
+console.log("bought item blueberry")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"242",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinCIA() {
+alert("Bought!")
+console.log("bought item cia")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"278",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinRocket() {
+alert("Bought!")
+console.log("bought item rocket")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"251",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+                function buySkinMaple() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"226",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+
+                  function buySkinfrenchfries() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"209",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinAcorn() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"238",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinSunbath() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"230",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+
+                function buySkinDiver() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"252",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+
+                function buySkinStarfish() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"241",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+
+                function buySkinFighter() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"259",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+
+
+
+                 function buySkinSonicboom() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"405",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+
+
+                function buySkinHulk() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"310",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+                function buySkinWackyegg() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"375",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinSkullpirate() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"237",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinArcher() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"302",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinSnowman() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"830",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinDrcosmos() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"304",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinNybell() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"831",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinMoonship() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"333",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinCoolandroid() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"441",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinBadger() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"216",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinHungryshark() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"345",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinJuicecan() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"253",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinJellyface() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"223",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinFrogfighter() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"259",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinFaun() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"232",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinCake() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"288",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinNurse() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"299",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinEaglealien() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"423",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinBasketball() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"348",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+                function buySkinBitter() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"407",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+                function buySkinDroid() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"368",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinNuclearr() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"243",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinGhostchild() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"419",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+
+
+                function buySkinCoil() {
+alert("Bought!")
+console.log("bought item maple")
+
+        //SENDS API POST REQUEST TO BUY SKIN
+
+    $.ajax({
+  type: "POST",
+  url: "https://api.blobgame.io:988/api/users/buyItem",
+  data: {
+         "api_ver":"4.7",
+         "item_id":"365",
+         "pl":"3",
+         "token":token
+        },
+  success: function(data) {
+    console.log(data);
+
+  },
+  dataType: "json"
+});
+}
+*/
+
+
+
+    //skin setting click
+const inputElement = document.querySelector("body > app-root > app-main > div.wrapper > article > div > ul > li:nth-child(2) > div > div > div:nth-child(2) > button:nth-child(1)").addEventListener("click", showShop);
+
+
+//MAKE A SECTION BELOW PREMIUM WHERE YOU CAN BUY ACCOUNTS FROM BLOBIO-SHOP
+//var my_div = document.querySelector("#modal > app-skins > div.body > div.left > ul");
+//my_div.innerHTML = my_div.innerHTML + '<li _ngcontent-c2="">Accounts</li>';
+
+})();
