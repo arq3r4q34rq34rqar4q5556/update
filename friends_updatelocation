@@ -8,6 +8,8 @@
 // @match        *://blobgame.io/*
 // @icon         https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240
 // @grant        none
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @license MIT
 // ==/UserScript==
  
