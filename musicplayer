@@ -32,7 +32,7 @@
     };
     const cg = () => {
         const gc = `
-      <div id="musikHeader">🎶 Music Player is by YT - Feature69_</div>
+      <div id="musikHeader">🎶 Music Player is by YT - Feature69_ not me</div>
       <div id="musikInhalt">
         <div id="fileUploadContainer">
           <input type="file" id="fileUpload" accept="audio/*">
