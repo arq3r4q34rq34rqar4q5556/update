@@ -6,8 +6,3 @@ console.log(IDwhitelist);
         console.log("Welcome, test account");
     } else if (IDwhitelist === 1253538) {
         console.log("Welcome, apexx");
-} else {
-    alert("Sorry, you are not a tester! If you have questions, or want to become a tester! Join the discord.")
-    return false;
-
-}
