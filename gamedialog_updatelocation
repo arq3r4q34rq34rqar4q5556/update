@@ -7,5 +7,5 @@ document.querySelector("#rules-dialog > div > ul > li:nth-child(2)").remove();
 document.querySelector("#rules-dialog > div > ul > li:nth-child(3)").remove();
 
 document.querySelector("#rules-dialog > div > ul > li").innerText = "hey, testers. this mod will automatically be updated. for now im putting a alot of stuff in it as to see what fits for it, like this is just ideas.";
-document.querySelector("#rules-dialog > div > ul > li:nth-child(2)").innerText = "hearts gui on greasyfork, i copied and modified it https://greasyfork.org/en/scripts/504037-heart-clicker-game-cheat-gui";
+document.querySelector("#rules-dialog > div > ul > li:nth-child(2)").innerText = "its hearts gui on greasyfork, i copied and modified it https://greasyfork.org/en/scripts/504037-heart-clicker-game-cheat-gui";
 
