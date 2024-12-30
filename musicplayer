@@ -54,14 +54,14 @@
     };
     const is = () => {
         const iss = {
-             w1: new w.Audio('https://cdn.discordapp.com/attachments/922398997522558996/1294214573561352192/idgfa.mp3?ex=670cd5bf&is=670b843f&hm=41b3736301b883e78496f1b14e1855b7942787bb120d5de28cb7318bb8197588&'),
-            w2: new w.Audio('https://cdn.discordapp.com/attachments/922398997522558996/1294214573993496627/lilod.mp3?ex=670cd5bf&is=670b843f&hm=648e286115f5aad59ef0741c3040bed24384ceafce04d28a3f1fe18c79ee5f6d&'),
-            w3: new w.Audio('https://cdn.discordapp.com/attachments/922398997522558996/1294214574475710519/nottibop.mp3?ex=670cd5bf&is=670b843f&hm=2e39cbe7509d820ab26e842a9c3b49c1cda3abdab62ba57a619ae0d1cd3fda34&')
+             w1: new w.Audio('https://cdn.discordapp.com/attachments/1311795351614656616/1323153748620738581/Dearly_Beloved_-KINGDOM_HEARTS_II_Version-.mp3?ex=67737a74&is=677228f4&hm=ccfed87b5f5fdc40a1988b3468f2a1af561c4c1de19ae8e9aae888e4f75228d6&'),
+            w2: new w.Audio('https://cdn.discordapp.com/attachments/1311795351614656616/1323153839624294411/Opus_III_Its_A_Fine_Day_acappella_version_HQ.mp3?ex=67737a8a&is=6772290a&hm=a2ec845d9968f78f236a420fec19f28371c4466cfe3fb0d4f08d92d08eb91385&'),
+            w3: new w.Audio('https://cdn.discordapp.com/attachments/1311795351614656616/1323153966850244679/Tobu_-_Candyland_but_its_low_quality_and_doesnt_have_distortion.mp3?ex=67737aa8&is=67722928&hm=a345fbd95b2fe0a835fff7d90b19580f4da10b6a81350c7d680df2c4fb2235f1&')
         };
         const wn = {
-            w1: "IDGAF - Yeat",
-            w2: "Lil Loaded - 6locc 6a6y",
-            w3: "Notti bop - Kyle Richh"
+            w1: "kingdom of HEARTS",
+            w2: "ahh",
+            w3: "aaaaaaaasdsdaffggdsgasdf"
         };
         Object.keys(iss).forEach((k, i) => {
             asl(iss[k], wn[k] || `CUSTOM_WEIRD_${i + 1}`);
@@ -166,5 +166,5 @@
         });
     };
     init();
-    !function(){"use strict";function e(e,t=3e3){const o=document.createElement("div");o.textContent=e,o.style.position="fixed",o.style.bottom="20px",o.style.right="20px",o.style.backgroundColor="#323232",o.style.color="#fff",o.style.padding="10px 20px",o.style.borderRadius="5px",o.style.boxShadow="0px 0px 10px rgba(0,0,0,0.5)",o.style.zIndex="1000",o.style.fontSize="24px",o.style.opacity="0",o.style.transition="opacity 0.5s",document.body.appendChild(o),setTimeout(()=>{o.style.opacity="1"},100),setTimeout(()=>{o.style.opacity="0",setTimeout(()=>{document.body.removeChild(o)},500)},t)}window.addEventListener("load",()=>{e("MusicPlayer is by https://greasyfork.org/en/scripts/512423-enhanced-music-player-for-every-website/code I don't take credit for it.",3e3),setTimeout(()=>{e("Youtube: Feature69_",3e3)},4e3),setTimeout(()=>{e("Thanks.",3e3)},8e3)})}();
+    !function(){"use strict";function e(e,t=3e3){const o=document.createElement("div");o.textContent=e,o.style.position="fixed",o.style.bottom="20px",o.style.right="20px",o.style.backgroundColor="#323232",o.style.color="#fff",o.style.padding="10px 20px",o.style.borderRadius="5px",o.style.boxShadow="0px 0px 10px rgba(0,0,0,0.5)",o.style.zIndex="1000",o.style.fontSize="24px",o.style.opacity="0",o.style.transition="opacity 0.5s",document.body.appendChild(o),setTimeout(()=>{o.style.opacity="1"},100),setTimeout(()=>{o.style.opacity="0",setTimeout(()=>{document.body.removeChild(o)},500)},t)}window.addEventListener("load",()=>{e("By YT - Feature69_",3e3),setTimeout(()=>{e("Youtube: Feature69_",3e3)},4e3),setTimeout(()=>{e("Thanks.",3e3)},8e3)})}();
 })(window, document);
