@@ -1,617 +1,209 @@
-(function() {
-    'use strict';
-var homepage = !!location.href.match('https://blobgame.io/');
-var gameactivity = !!location.href.match(/custom.client.blobgame.io/);
- //   gameactivity.exclude ('http://custom.client.blobgame.io/?ip=51.195.60.134:4701');
-//var replayActivity = !!location.href.match('http://custom.client.blobgame.io/?ip=51.195.60.134:4701');
-var IDwhitelist = JSON.parse(atob(localStorage.getItem("access-token").split(".")[1]))["userId"];
-
-
-
-
-            //Only access is if you're a tester from Discord, through access token reading id.
-
-           // if (accessTokenIdParse == "1243086", "1233293"){alert("Welcome 2"), alert("Welcome 7");
- //if (replayActivity) {
-
-
-//return
-
-
-//}
-
-
-
-    if (homepage) {
-
-        //WHITELIST CHECK
-
-console.log(IDwhitelist);
-
-             if(IDwhitelist === 1233293){
-        alert("Welcome, bro d123450789");
-
-    } else if (IDwhitelist === 1253538) {
-        alert("Welcome, tester");
-
-            } else if (IDwhitelist === 51259) {
-        alert("Welcome, tester ( Apexx Savagekid )");
-
-
-} else {
-    alert("Sorry, you are not a tester! If you have questions, or want to become a tester! Join the discord.")
-    return false;
-
+function _0x2aa5() {
+  const _0x841f6f = ['button', 'heart-count', 'width', 'birdie', 'set-character-button', 'lion', 'griffin', 'https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240', 'red_fiend', 'deer', 'body\x20>\x20app-root\x20>\x20app-main\x20>\x20div.wrapper\x20>\x20article\x20>\x20div\x20>\x20ul\x20>\x20li:nth-child(1)\x20>\x20img', 'removeEventListener', 'behemoth', '12760650jozXTu', 'body\x20>\x20app-root\x20>\x20app-main\x20>\x20div.wrapper\x20>\x20footer\x20>\x20div.partner\x20>\x20div\x20>\x20a:nth-child(2)', 'blueswirl', 'reaper', '35mDjnjA', 'replace', 'userId', 'auto', 'value', 'src', 'Join\x20the\x20◦♡°Discord°♡◦\x20!', 'rooster', 'innerHTML', 'right', 'cyclops', 'textContent', 'trex', 'shark', 'mousemove', 'none', '\x20Hearts', 'Open\x20MusicPlayer', 'div', 'set-heart-button', 'small_chick', 'cow', 'pug', '#info-modal\x20>\x20app-info\x20>\x20div\x20>\x20div.title', 'dragon', 'bullking', '#chat\x20>\x20ul', 'appendChild', 'sentiel', 'clicker', 'kraken', 'mammoth', 'cute_cat', 'leo', 'fox', 'head', 'kempo_tiger', 'querySelectorAll', 'firebird', 'chipmonk', 'parse', 'chat', 'chick', 'mouseup', 'blue_kitty', 'href', 'sheep', 'match', 'Automatically\x20updates!\x20:)\x20', '<li\x20uid=\x220\x22><span\x20style=\x22color:\x20rgb(155,\x20155,\x20155);\x20font-weight:\x20bold;\x22>SERVER</span><span\x20style=\x22font-weight:\x20bold;\x22>\x20[Tips&Tricks!]</span><span\x20style=\x22color:\x20rgb(26,255,210);\x22>:Mercedes-Benz\x20R\x20300\x20CDI\x20DPF\x20BlueEfficiency\x207G-Tronic\x20</span></li>', 'clientX', 'mouse', 'wasp', 'character-select', '#info-modal\x20>\x20app-info\x20>\x20div\x20>\x20a', 'body', 'clicked\x20game\x20dialog', 'chill_krak', 'getItem', 'owl', 'Sorry,\x20you\x20are\x20not\x20a\x20tester!\x20If\x20you\x20have\x20questions,\x20or\x20want\x20to\x20become\x20a\x20tester!\x20Join\x20the\x20discord.', 'mousedown', '447861AzRJsI', '704123WWktKp', 'small_owl', 'gorilla', 'pengui', 'fury_cat', 'top', 'lobster', 'blackcat', 'wendigo', 'colossus', '100%', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20#cheat-gui\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20fixed;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20top:\x20206px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20right:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20left:\x20885px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20rgba(0,\x200,\x200,\x200.8);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#fff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x204px\x208px\x20rgba(0,\x200,\x200,\x200.3);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20z-index:\x201000;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20cursor:\x20move;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20#cheat-gui\x20button,\x20#cheat-gui\x20input,\x20#cheat-gui\x20select\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x205px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x205px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2014px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x205px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20#ccc;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20#cheat-gui\x20button\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#3498db;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#fff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20background\x200.2s\x20ease-in-out;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20#cheat-gui\x20button:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#2980b9;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20', 'config-username', 'https://cdn-cf-east.streamable.com/video/mp4/k3ej6w.mp4?Expires=1735911001964&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=KQvkfRuW~w~IUgU585wUE0AkJxeqAk0~Y1owCxeztOUDlglili1ye3mVRE~A8pRBKRnyfYKSvEPnlkoc8XLD7eppJRtZ7uX6as~SaVCt0HXQvPzfC010rmk7KemA3xNinwW5O9kcsSfSUHRhmrM5PKvZnjXe2jQK187nbg9zPcDGUn80eLyfWkVjsE-cDQ4FAH9VJ-S2MQahhJcQCceSnwRAY-a6vtkLu-wVMfM~mUJYlmmlf60fXXnCTTlA2gvbN0k4CllaRVmRWdufiUElqnCE~rc2y6fDJc~ACtzNovvbk68kzWLxQ9B8DNkWA3DVUEuFF7maB766hymn4N-tLg__', 'cover', 'height', 'evil_cat', 'lion2', 'amber', 'open-music-player', '<li\x20uid=\x220\x22><span\x20style=\x22color:\x20rgb(155,\x20155,\x20155);\x20font-weight:\x20bold;\x22>SERVER</span><span\x20style=\x22font-weight:\x20bold;\x22>\x20[ADMIN]</span><span\x20style=\x22color:\x20rgb(108,59,170);\x22>:You\x20are\x20a\x20◦♡°Premium°♡◦\x20user\x20</span></li>', 'fly_killer', 'kraken_', 'split', 'click', 'carp', 'spider', 'body\x20>\x20app-root\x20>\x20app-main\x20>\x20div.wrapper\x20>\x20article\x20>\x20div\x20>\x20ul\x20>\x20li:nth-child(1)', '1913264Geytxk', 'style', '8nHjyNP', 'lizard', 'Musicplayer\x20is\x20by\x20yt:\x20Feature69_\x20not\x20me', 'octopus', 'raptor', 'access-token', 'medusa', '#info-modal\x20>\x20app-info\x20>\x20div\x20>\x20img', '406074rUqDQX', 'cheat-gui', 'elephant', 'placeholder', 'bat', 'clientY', 'cute_panda', 'zIndex', '1668360XiWoJP', 'cat', 'fixed', 'log', 'responseText', 'getBoundingClientRect', 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/gamedialog_updatelocation', 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/shop_updatelocation', 'reload', 'https://cdn-cf-east.streamable.com/video/mp4/eea44s.mp4?Expires=1735521288481&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=Ct4GuEh3n-ujR2yzAd38xZwnCo6T0PDwB0uy0ZgfiYdGJ2Z-noEWf3PWYlhJP63qF6sd~VGgnh0fsohp8H2D85QqjGn~jNNIkCRuiLY-QKntCW3C4VJtI6wn7PRRLRguQA5uuPEJp-jZsBrzbgRCn1UrPHSRqrI7w~z3vvQ3Pn2RMumbrv5pxvXp4gzloZQRTYRMxrzxST0uRdIzCldiCIuvXaMKzoAt4thVMJC2-0wq7NA-aN4~HUPiQUGD2N2ZjCxYU-c8ijJ~3cHuFWQB2YmpxLOFaS88QrS~mSJ0zQM4sMb8nE2~zfHx4fAn32CshjblquWc8G4dGIxncCvKAw__', 'blur', '#shop\x20button[id^=\x22buy-upgrade\x22]', 'forEach', 'left', 'Change\x20skin', 'penguin', 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/musicplayer', 'backgroundImage', 'husky', 'sly', 'loop', 'getElementById', 'autoplay', '2188566DaVozp', 'innerText', 'Set\x20new\x20nickname', 'sea_turtle', 'crow', 'muted', 'ice_lord', 'addEventListener', 'select', 'trex_big', 'createElement', 'fish', 'sumo', 'querySelector', 'position', 'godzilla'];
+  _0x2aa5 = function () {
+    return _0x841f6f;
+  };
+  return _0x2aa5();
 }
 
-
-        /*
-             if(IDwhitelist === 1243086){
-        alert("Welcome, tester");
-
-                 if(IDwhitelist === 1253538){
-        alert("Welcome, apexxx");
-
-} else {
-    alert("Sorry, you are not a tester! If you have questions, or want to become a tester! Join the discord.")
-}
-}
-*/
-
-    // if(accessTokenIdParse == "1243086"){
-     //   alert("ok");
-  //  }
-//window.onload = parseTokenID();
-
-
-    //Load scripts
-
-            //Friends settings
-
-    GM_xmlhttpRequest({url: 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/friends_updatelocation', onload: (data) => {
-        eval(data.responseText);
-    }});
-
-        //Shop settings
-
- GM_xmlhttpRequest({url: 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/shop_updatelocation', onload: (data) => {
-        eval(data.responseText);
-    }});
-
-
-                 //  document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner > div > a:nth-child(2)").click();
-
-    //New styles
-
-   //     document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner").element.style.display = "block";
-
-       document.querySelector("body > app-root > app-main > div.wrapper > article > div > ul > li:nth-child(1) > img").src = "https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240";
-       document.querySelector("body > app-root > app-main > div.wrapper > article > div > ul > li:nth-child(1)").style.backgroundImage = 'none';
-
-    var video33 = document.createElement('video');
-    video33.src = 'https://cdn-cf-east.streamable.com/video/mp4/k3ej6w.mp4?Expires=1735911001964&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=KQvkfRuW~w~IUgU585wUE0AkJxeqAk0~Y1owCxeztOUDlglili1ye3mVRE~A8pRBKRnyfYKSvEPnlkoc8XLD7eppJRtZ7uX6as~SaVCt0HXQvPzfC010rmk7KemA3xNinwW5O9kcsSfSUHRhmrM5PKvZnjXe2jQK187nbg9zPcDGUn80eLyfWkVjsE-cDQ4FAH9VJ-S2MQahhJcQCceSnwRAY-a6vtkLu-wVMfM~mUJYlmmlf60fXXnCTTlA2gvbN0k4CllaRVmRWdufiUElqnCE~rc2y6fDJc~ACtzNovvbk68kzWLxQ9B8DNkWA3DVUEuFF7maB766hymn4N-tLg__';
-    video33.loop = true;
-    video33.muted = true;
-    video33.autoplay = true;
-   // video.start = true;
-    video33.style.position = 'fixed';
-    video33.overflow = 'auto';
-    video33.style.top = '0';
-    video33.style.left = '0';
-    video33.style.width = '100%';
-    video33.style.height = '100%';
-    video33.style.objectFit = 'cover';
-    video33.style.zIndex = '0';
-    video33.style.pointerEvents = 'none';
-
-    document.querySelector("body > app-root > app-main > div.wrapper > article > div > ul > li:nth-child(1)").appendChild(video33);
-
-
-        function editHexaDialog()
-        {
-console.log("clicked hexa dialog")
-            document.querySelector("#info-modal > app-info > div > div.title").innerText = "Join the ◦♡°Discord°♡◦ !";
-            document.querySelector("#info-modal > app-info > div > img").src = "https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240";
-            document.querySelector("#info-modal > app-info > div > a").href = "https://discord.gg/VmZSq38Zs8";
-            document.querySelector("#info-modal > app-info > div > a").innerText = "Automatically updates! :) ";
-
-        //    document.getElementsByClassName("mus-conv icon-button pulse").style.backgroundImage = "url('http://www.pxleyes.com/images/contests/kiwis/fullsize/sourceimage.jpg')";
-
-        }
-
-        var bra = document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner > div > a:nth-child(2)").addEventListener("click", editHexaDialog);
-                   document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner > div > a:nth-child(2)").click();
-
-}
-
-    //MUSIC PLAYER
-
-
-    if (gameactivity) {
-
-        //WHITELIST CHECK
-
-console.log(IDwhitelist);
-
-             if(IDwhitelist === 1233293){
-
-    } else if (IDwhitelist === 1253538) {
-
-            } else if (IDwhitelist === 51259) {
-
-
-} else {
-    alert("Sorry, you are not a tester! If you have questions, or want to become a tester! Join the discord.")
-    return false;
-
-}
-
-
-
-        console.log("entered gameactivity")
-
-        if
-(document.getElementById('chat').innerHTML == '<li uid="1233293">'){
-    console.log("right")
-}
-
-
-
-/*
-$("body").append (
-    '<img id="myNewImage" src="http://i37.photobucket.com/albums/e77/kpeaton/unicorn.jpg">'
-);
-$("#myNewImage").css ( {
-
-    position:   "fixed",
-    width:      "128px",
-    height:     "128px",
-    top:        "200px",
-    left:       "20px"
-} );
-*/
-        //New style
-/*
-    var textinput = document.getElementById('message');
-    if (textinput.value === "/openmenu"){
-console.log("ayo AYO yoooooo")
-
-}
-*/
-
-//GAME STARTUP DIALOG
-/*
-             //GUI VIDEO GUI VIDEO
-
-
-// document.getElementById('cheat-gui').style.backgroundImage = 'none';
-
-    var video2 = document.createElement('video');
-  //  video.src = chatBackgroundSrc;
-    video2.src = "https://cdn-cf-east.streamable.com/video/mp4/32exdr.mp4?Expires=1735437547815&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=Q5LvZZ9ll6EDxAjtDxtpChc9C2KcxybjeD9K2OQ7PTApxNxRqy2yYcRkV~PybUMv1DHU8rxu65dNqYEMeFtWTYWbZIPBX7XHEiU1H68N1UVFjx-31A6yOG~ANuH04qEHN-025qfjgt3XGjXcjGZ-JWxafgYXevC7u1SG7TKPBTNS7YKTJ-3Z0SUg0xETypaKgZCP0iuS4-RwdxdbcnZ~035r1AjwQ~2aabrJNIflq5PxNQjZ--dFp8qjw~3mcSikdzYTz21hYlUfUso0FWevRQ2Qai67wKcR543N8vVhdThD~NM3y5527kDMkiA5vdBdCEbe1X10lN2oRbvi~T4Z~Q__";
-
-    video2.loop = true;
-    video2.muted = true;
-    video2.autoplay = true;
-    video2.style.position = 'static';
-    video2.style.top = '0';
-    video2.style.left = '0';
-    video2.style.width = '100%';
-    video2.style.height = '100%';
-    video2.style.objectFit = 'cover';
-    video2.style.zIndex = '-1';
-    video2.style.pointerEvents = 'none';
-
-    document.getElementById('cheat-gui').appendChild(video2);
-
-*/
-
-
-                function editGameDialog()
-        {
-console.log("clicked game dialog")
-         /*   document.querySelector("#info-modal > app-info > div > div.title").innerText = "Join the ◦♡°Discord°♡◦ !";
-            document.querySelector("#info-modal > app-info > div > img").src = "https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240";
-            document.querySelector("#info-modal > app-info > div > a").href = "https://discord.gg/VmZSq38Zs8";
-            document.querySelector("#info-modal > app-info > div > a").innerText = ":) Automatically updates!";
-
-            document.getElementsByClassName("mus-conv icon-button pulse").style.backgroundImage = "url('http://www.pxleyes.com/images/contests/kiwis/fullsize/sourceimage.jpg')";
-*/
-
-        }
-
-
-        //Custom gameactivity startup dialog
-
-         GM_xmlhttpRequest({url: 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/gamedialog_updatelocation', onload: (data) => {
-        eval(data.responseText);
-    }});
-
-/*
-        var ohhh = document.querySelector("#rules-dialog")
-                   ohhh.style.display = "block";
-        document.querySelector("#rules-dialog > div > ul > li:nth-child(3)").remove();
-document.querySelector("#rules-dialog > div > ul > li:nth-child(4)").remove();
-document.querySelector("#rules-dialog > div > ul > li:nth-child(1)").remove();
-document.querySelector("#rules-dialog > div > ul > li:nth-child(2)").remove();
-document.querySelector("#rules-dialog > div > ul > li:nth-child(3)").remove();
-
-document.querySelector("#rules-dialog > div > ul > li").innerText = "hey, testers. this mod will automatically be updated. for now im putting a alot of stuff in it as to see what fits for it, like this is just ideas.";
-document.querySelector("#rules-dialog > div > ul > li:nth-child(2)").innerText = "hearts gui on greasyfork, i copied and modified it https://greasyfork.org/en/scripts/504037-heart-clicker-game-cheat-gui";
-
-
-*/
-
-const yaya = document.querySelector("#rules-dialog > button").addEventListener("click", addGui);
-
-        function addGui()
-{
-               // const chatBackgroundSrc = (document.getElementById('chat-bg-input').value);
-
-    //CHAT VIDEO CHAT VIDEO
-
-    //SERVER CHAT WELCOME PREMIUM
-
-    setTimeout(function() {
-
-
-    function foo() {
-
-
-
-document.querySelector("#chat > ul").innerHTML += '<li uid="0"><span style="color: rgb(155, 155, 155); font-weight: bold;">SERVER</span><span style="font-weight: bold;"> [ADMIN]</span><span style="color: rgb(108,59,170);">:You are a ◦♡°Premium°♡◦ user </span></li>';
-
-    setTimeout(foo, 60000);
-}
-
-foo();
-
-}, 3000);
-
-
-    //SERVER CHAT TIPS
-
-    /*
-    setTimeout(function() {
-
-
-    function foo2() {
-
-
-
-document.querySelector("#chat > ul").innerHTML += '<li uid="0"><span style="color: rgb(155, 155, 155); font-weight: bold;">SERVER</span><span style="font-weight: bold;"> [Tips&Tricks!]</span><span style="color: rgb(26,255,210);">:going to add tips/hints here ! </span></li>';
-
-    setTimeout(foo2, 180000);
-}
-
-foo2();
-
-}, 60000);
-*/
-
-    setTimeout(function() {
-
-
-    function foo3() {
-
-
-
-document.querySelector("#chat > ul").innerHTML += '<li uid="0"><span style="color: rgb(155, 155, 155); font-weight: bold;">SERVER</span><span style="font-weight: bold;"> [Tips&Tricks!]</span><span style="color: rgb(26,255,210);">:Mercedes-Benz R 300 CDI DPF BlueEfficiency 7G-Tronic </span></li>';
-
-    setTimeout(foo3, 300000);
-}
-
-foo3();
-
-}, 120000);
-
-
-
-
-
-
-
-
-function addMusicPlayer(){
-alert("Musicplayer is by yt: Feature69_ not me")
-    document.getElementById('open-music-player').blur();
-
-      GM_xmlhttpRequest({url: 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/musicplayer', onload: (data) => {
-        eval(data.responseText);
-    }});
-
-}
-
-
- document.getElementById('chat').style.backgroundImage = 'none';
-
-    var video = document.createElement('video');
-  //  video.src = chatBackgroundSrc;
-    video.src = "https://cdn-cf-east.streamable.com/video/mp4/eea44s.mp4?Expires=1735521288481&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=Ct4GuEh3n-ujR2yzAd38xZwnCo6T0PDwB0uy0ZgfiYdGJ2Z-noEWf3PWYlhJP63qF6sd~VGgnh0fsohp8H2D85QqjGn~jNNIkCRuiLY-QKntCW3C4VJtI6wn7PRRLRguQA5uuPEJp-jZsBrzbgRCn1UrPHSRqrI7w~z3vvQ3Pn2RMumbrv5pxvXp4gzloZQRTYRMxrzxST0uRdIzCldiCIuvXaMKzoAt4thVMJC2-0wq7NA-aN4~HUPiQUGD2N2ZjCxYU-c8ijJ~3cHuFWQB2YmpxLOFaS88QrS~mSJ0zQM4sMb8nE2~zfHx4fAn32CshjblquWc8G4dGIxncCvKAw__";
-
-    video.loop = true;
-    video.muted = true;
-    video.autoplay = true;
-    video.style.position = 'fixed';
-    video.style.top = '0';
-    video.style.left = '0';
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.objectFit = 'cover';
-    video.style.zIndex = '-1';
-    video.style.pointerEvents = 'none';
-
-    document.getElementById('chat').appendChild(video);
-
-
-//var currentNick = localStorage.getItem('config-username');
-
-
-        //NEW GUI
-
-//var chatBackgroundSrc = document.getElementById("chat-bg-input");
-
-    const style = document.createElement('style');
-    style.textContent = `
-        #cheat-gui {
-            position: fixed;
-            top: 206px;
-            right: 10px;
-            left: 885px;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            cursor: move;
-        }
-        #cheat-gui button, #cheat-gui input, #cheat-gui select {
-            margin: 5px 0;
-            padding: 5px;
-            font-size: 14px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        #cheat-gui button {
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s ease-in-out;
-        }
-        #cheat-gui button:hover {
-            background-color: #2980b9;
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Create and add cheat GUI
-    const cheatGui = document.createElement('div');
-    cheatGui.id = 'cheat-gui';
-    document.body.appendChild(cheatGui);
-
-    const cheatTitle = document.createElement('h2');
-    cheatTitle.innerText = 'hii';
-    cheatGui.appendChild(cheatTitle);
-  //        const cheatdesc = document.createElement('h2');
-//    cheatdesc.innerText = 'gui by https://greasyfork.org/en/scripts/504037-heart-clicker-game-cheat-gui';
-//    cheatdesc.fontSize = '2px';
-   // cheatdesc.sizeX = '2px';
-
-   // cheatGui.appendChild(cheatdesc);
-
-    const setHeartInput = document.createElement('input');
-    setHeartInput.id = 'set-heart-input';
-    setHeartInput.placeholder = 'Enter new nickname';
-  //  setHeartInput.text = currentNick.value;
-   // setHeartInput.type = 'number';
-    cheatGui.appendChild(setHeartInput);
-
-    const setHeartButton = document.createElement('button');
-    setHeartButton.id = 'set-heart-button';
-    setHeartButton.innerText = 'Set new nickname';
-    cheatGui.appendChild(setHeartButton);
-
-   /*     const rainbowMode = document.createElement('button');
-    rainbowMode.id = 'modeRainbow';
-    rainbowMode.innerText = 'Rainbow Mode';
-    cheatGui.appendChild(rainbowMode);
-*/
-    /*
-        const skipRestart = document.createElement('checkbox');
-    skipRestart.type = 'checkbox';
-    skipRestart.hasCheckbox = true;
-    skipRestart.id = 'restartSkip';
-    skipRestart.innerText = 'Skip restart timer';
-    cheatGui.appendChild(skipRestart);
-    */
-/*
-/*
-        //CHAT BG INPUT
-
-
-    const backgroundChat = document.createElement('input');
-    backgroundChat.id = 'chat-bg-input';
-    backgroundChat.placeholder = 'Enter url';
-   // setHeartInput.type = 'number';
-    cheatGui.appendChild(backgroundChat);
-
-    //CHAT BG BUTTON
-
-    const setChatBgButton = document.createElement('button');
-    setChatBgButton.id = 'set-chat-bg-button';
-    setChatBgButton.innerText = 'Set new chat bg video';
-    cheatGui.appendChild(setChatBgButton);
-*/
-    const characterSelect = document.createElement('select');
-    characterSelect.id = 'character-select';
-    const heartOptions = ['1cat', 'fly', 'spider', 'mouse', 'chipmonk', 'cute_cat', 'cat2', 'fish', 'blue_kitty', 'amber', 'carp', 'griffin', 'small_chick', 'small_owl', 'lobster', 'wasp', 'pug', 'sea_turtle', 'octopus', 'bat', 'rabbit', 'chick', 'pengui', 'birdie', 'lizard', 'owl', 'fly_killer', 'rooster', 'cat', 'crow', 'parrot', 'evil_cat', 'fox', 'cow', 'cyclops', 'blackcat', 'deer', 'bullking', 'fury_cat', 'penguin', 'blueswirl', 'sly', 'husky', 'sheep', 'sumo', 'cute_panda', 'angry_panda', 'panther', 'kempo_tiger', 'firebird', 'wolf_', 'yeti', 'lion', 'leo', 'lion2', 'croc', 'shark', 'colossus', 'behemoth', 'trex', 'mammoth', 'elephant', 'dragon', 'beast', 'gorilla', 'raptor', 'trex_big', 'godzilla', 'drago', 'basilisk', 'sentiel', 'poseidon', 'kraken', 'kraken_', 'red_fiend', 'wendigo', 'ice_lord', 'medusa', 'reaper', 'chill_krak'];
-    heartOptions.forEach(char => {
-        const option = document.createElement('option');
-        option.value = char;
-        option.innerText = char;
-        characterSelect.appendChild(option);
-
- });
-/*
-  const addBots = document.createElement('button');
-    addBots.id = 'set-heart-button';
-    addBots.innerText = 'Add minions';
-    cheatGui.appendChild(addBots);
-
- const botAmount = document.createElement('select');
-
-    botAmount.id = 'bot-amount';
-    const botAmountselection = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
-    botAmountselection.forEach(char => {
-        const option2 = document.createElement('option');
-        option2.value = char;
-        option2.innerText = char;
-        botAmount.appendChild(option2);
-
+function _0x3012(_0x4520c0, _0x57df16) {
+  const _0x2aa577 = _0x2aa5();
+  return _0x3012 = function (_0x30123f, _0x3d432a) {
+    _0x30123f = _0x30123f - 0x17b;
+    let _0x5f0c44 = _0x2aa577[_0x30123f];
+    return _0x5f0c44;
+  }, _0x3012(_0x4520c0, _0x57df16);
+}(function (_0x350aa7, _0x152b9d) {
+  const _0x2321c4 = _0x3012,
+    _0x552fc2 = _0x350aa7();
+  while (!![]) {
+    try {
+      const _0x40a595 = parseInt(_0x2321c4(0x1d7)) / 0x1 + -parseInt(_0x2321c4(0x1f4)) / 0x2 + parseInt(_0x2321c4(0x21d)) / 0x3 + -parseInt(_0x2321c4(0x206)) / 0x4 + -parseInt(_0x2321c4(0x199)) / 0x5 * (parseInt(_0x2321c4(0x1fe)) / 0x6) + parseInt(_0x2321c4(0x1d8)) / 0x7 * (-parseInt(_0x2321c4(0x1f6)) / 0x8) + parseInt(_0x2321c4(0x195)) / 0x9;
+      if (_0x40a595 === _0x152b9d) break;
+      else _0x552fc2['push'](_0x552fc2['shift']());
+    } catch (_0x13f341) {
+      _0x552fc2['push'](_0x552fc2['shift']());
+    }
+  }
+}(_0x2aa5, 0x9e001), (function () {
+  'use strict';
+  const _0x348fc6 = _0x3012;
+  var _0x20379e = !!location[_0x348fc6(0x1c6)][_0x348fc6(0x1c8)]('https://blobgame.io/'),
+    _0x73dc4 = !!location[_0x348fc6(0x1c6)][_0x348fc6(0x1c8)](/custom.client.blobgame.io/),
+    _0xb309ca = JSON[_0x348fc6(0x1c1)](atob(localStorage[_0x348fc6(0x1d3)](_0x348fc6(0x1fb))[_0x348fc6(0x1ef)]('.')[0x1]))[_0x348fc6(0x19b)];
+  if (_0x20379e) {
+    console[_0x348fc6(0x209)](_0xb309ca);
+    if (_0xb309ca === 0x12d18d) alert('Welcome,\x20bro\x20d123450789');
+    else {
+      if (_0xb309ca === 0x1320a2) alert('Welcome,\x20tester');
+      else {
+        if (_0xb309ca === 0xc83b) alert('Welcome,\x20tester\x20(\x20Apexx\x20Savagekid\x20)');
+        else return alert(_0x348fc6(0x1d5)), ![];
+      }
+    }
+    GM_xmlhttpRequest({
+      'url': 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/friends_updatelocation',
+      'onload': _0x3c1eec => {
+        const _0x1ab792 = _0x348fc6;
+        eval(_0x3c1eec[_0x1ab792(0x20a)]);
+      }
+    }), GM_xmlhttpRequest({
+      'url': _0x348fc6(0x20d),
+      'onload': _0x1be27e => {
+        const _0x32531a = _0x348fc6;
+        eval(_0x1be27e[_0x32531a(0x20a)]);
+      }
+    }), document[_0x348fc6(0x185)](_0x348fc6(0x192))[_0x348fc6(0x19e)] = _0x348fc6(0x18f), document[_0x348fc6(0x185)](_0x348fc6(0x1f3))[_0x348fc6(0x1f5)][_0x348fc6(0x217)] = _0x348fc6(0x1a8);
+    var _0xe7a71c = document[_0x348fc6(0x182)]('video');
+    _0xe7a71c[_0x348fc6(0x19e)] = _0x348fc6(0x1e5), _0xe7a71c[_0x348fc6(0x21a)] = !![], _0xe7a71c[_0x348fc6(0x17d)] = !![], _0xe7a71c[_0x348fc6(0x21c)] = !![], _0xe7a71c[_0x348fc6(0x1f5)]['position'] = _0x348fc6(0x208), _0xe7a71c['overflow'] = _0x348fc6(0x19c), _0xe7a71c[_0x348fc6(0x1f5)][_0x348fc6(0x1dd)] = '0', _0xe7a71c[_0x348fc6(0x1f5)][_0x348fc6(0x213)] = '0', _0xe7a71c['style'][_0x348fc6(0x18a)] = _0x348fc6(0x1e2), _0xe7a71c[_0x348fc6(0x1f5)][_0x348fc6(0x1e7)] = '100%', _0xe7a71c[_0x348fc6(0x1f5)]['objectFit'] = 'cover', _0xe7a71c[_0x348fc6(0x1f5)][_0x348fc6(0x205)] = '0', _0xe7a71c['style']['pointerEvents'] = _0x348fc6(0x1a8), document[_0x348fc6(0x185)](_0x348fc6(0x1f3))[_0x348fc6(0x1b4)](_0xe7a71c);
+
+    function _0x50e937() {
+      const _0x1c81a6 = _0x348fc6;
+      console[_0x1c81a6(0x209)]('clicked\x20hexa\x20dialog'), document['querySelector'](_0x1c81a6(0x1b0))[_0x1c81a6(0x21e)] = _0x1c81a6(0x19f), document['querySelector'](_0x1c81a6(0x1fd))['src'] = _0x1c81a6(0x18f), document[_0x1c81a6(0x185)](_0x1c81a6(0x1cf))[_0x1c81a6(0x1c6)] = 'https://discord.gg/VmZSq38Zs8', document['querySelector'](_0x1c81a6(0x1cf))[_0x1c81a6(0x21e)] = _0x1c81a6(0x1c9);
+    }
+    var _0x449842 = document['querySelector'](_0x348fc6(0x196))[_0x348fc6(0x17f)](_0x348fc6(0x1f0), _0x50e937);
+    document[_0x348fc6(0x185)](_0x348fc6(0x196))[_0x348fc6(0x1f0)]();
+  }
+  if (_0x73dc4) {
+    console[_0x348fc6(0x209)](_0xb309ca);
+    if (_0xb309ca === 0x12d18d) {} else {
+      if (_0xb309ca === 0x1320a2) {} else {
+        if (_0xb309ca === 0xc83b) {} else return alert(_0x348fc6(0x1d5)), ![];
+      }
+    }
+    console[_0x348fc6(0x209)]('entered\x20gameactivity');
+    document[_0x348fc6(0x21b)]('chat')['innerHTML'] == '<li\x20uid=\x221233293\x22>' && console[_0x348fc6(0x209)](_0x348fc6(0x1a2));
+
+    function _0x16b4bc() {
+      const _0x3d5269 = _0x348fc6;
+      console[_0x3d5269(0x209)](_0x3d5269(0x1d1));
+    }
+    GM_xmlhttpRequest({
+      'url': _0x348fc6(0x20c),
+      'onload': _0x17a41f => {
+        const _0x4108ee = _0x348fc6;
+        eval(_0x17a41f[_0x4108ee(0x20a)]);
+      }
     });
-    */
-/*
-         const chatSpam = document.createElement('button');
-    chatSpam.id = 'chat-spam-button';
-    chatSpam.innerText = 'Spam';
-    cheatGui.appendChild(chatSpam);
+    const _0x28216b = document[_0x348fc6(0x185)]('#rules-dialog\x20>\x20button')[_0x348fc6(0x17f)](_0x348fc6(0x1f0), _0x5416f9);
 
-        const stopchatSpam = document.createElement('button');
-    stopchatSpam.id = 'stop-chat-spam-button';
-    stopchatSpam.innerText = 'Stop spam';
-    cheatGui.appendChild(stopchatSpam);
+    function _0x5416f9() {
+      const _0x87f936 = _0x348fc6;
+      setTimeout(function () {
+        function _0x1f3d07() {
+          const _0x2193b2 = _0x3012;
+          document['querySelector'](_0x2193b2(0x1b3))[_0x2193b2(0x1a1)] += _0x2193b2(0x1ec), setTimeout(_0x1f3d07, 0xea60);
+        }
+        _0x1f3d07();
+      }, 0xbb8), setTimeout(function () {
+        function _0x266f7a() {
+          const _0x19dfaa = _0x3012;
+          document[_0x19dfaa(0x185)](_0x19dfaa(0x1b3))[_0x19dfaa(0x1a1)] += _0x19dfaa(0x1ca), setTimeout(_0x266f7a, 0x493e0);
+        }
+        _0x266f7a();
+      }, 0x1d4c0);
 
+      function _0x286df5() {
+        const _0x1784a5 = _0x3012;
+        alert(_0x1784a5(0x1f8)), document[_0x1784a5(0x21b)](_0x1784a5(0x1eb))[_0x1784a5(0x210)](), GM_xmlhttpRequest({
+          'url': _0x1784a5(0x216),
+          'onload': _0xa36b01 => {
+            const _0x9bd3c4 = _0x1784a5;
+            eval(_0xa36b01[_0x9bd3c4(0x20a)]);
+          }
+        });
+      }
+      document[_0x87f936(0x21b)](_0x87f936(0x1c2))[_0x87f936(0x1f5)]['backgroundImage'] = 'none';
+      var _0x25e279 = document['createElement']('video');
+      _0x25e279['src'] = _0x87f936(0x20f), _0x25e279['loop'] = !![], _0x25e279[_0x87f936(0x17d)] = !![], _0x25e279[_0x87f936(0x21c)] = !![], _0x25e279[_0x87f936(0x1f5)][_0x87f936(0x186)] = _0x87f936(0x208), _0x25e279['style'][_0x87f936(0x1dd)] = '0', _0x25e279[_0x87f936(0x1f5)]['left'] = '0', _0x25e279[_0x87f936(0x1f5)][_0x87f936(0x18a)] = _0x87f936(0x1e2), _0x25e279[_0x87f936(0x1f5)]['height'] = _0x87f936(0x1e2), _0x25e279[_0x87f936(0x1f5)]['objectFit'] = _0x87f936(0x1e6), _0x25e279[_0x87f936(0x1f5)][_0x87f936(0x205)] = '-1', _0x25e279['style']['pointerEvents'] = _0x87f936(0x1a8), document['getElementById']('chat')['appendChild'](_0x25e279);
+      const _0x491508 = document[_0x87f936(0x182)](_0x87f936(0x1f5));
+      _0x491508[_0x87f936(0x1a4)] = _0x87f936(0x1e3), document[_0x87f936(0x1bc)]['appendChild'](_0x491508);
+      const _0x3e6ff3 = document[_0x87f936(0x182)](_0x87f936(0x1ab));
+      _0x3e6ff3['id'] = _0x87f936(0x1ff), document[_0x87f936(0x1d0)]['appendChild'](_0x3e6ff3);
+      const _0x5a0901 = document['createElement']('h2');
+      _0x5a0901[_0x87f936(0x21e)] = 'hii', _0x3e6ff3[_0x87f936(0x1b4)](_0x5a0901);
+      const _0x4eab2a = document[_0x87f936(0x182)]('input');
+      _0x4eab2a['id'] = 'set-heart-input', _0x4eab2a[_0x87f936(0x201)] = 'Enter\x20new\x20nickname', _0x3e6ff3[_0x87f936(0x1b4)](_0x4eab2a);
+      const _0x5b1b2a = document[_0x87f936(0x182)]('button');
+      _0x5b1b2a['id'] = _0x87f936(0x1ac), _0x5b1b2a[_0x87f936(0x21e)] = _0x87f936(0x21f), _0x3e6ff3[_0x87f936(0x1b4)](_0x5b1b2a);
+      const _0x2ded10 = document[_0x87f936(0x182)](_0x87f936(0x180));
+      _0x2ded10['id'] = _0x87f936(0x1ce);
+      const _0x52195c = ['1cat', 'fly', _0x87f936(0x1f2), _0x87f936(0x1cc), _0x87f936(0x1c0), _0x87f936(0x1b9), 'cat2', _0x87f936(0x183), _0x87f936(0x1c5), _0x87f936(0x1ea), _0x87f936(0x1f1), _0x87f936(0x18e), _0x87f936(0x1ad), _0x87f936(0x1d9), _0x87f936(0x1de), _0x87f936(0x1cd), _0x87f936(0x1af), _0x87f936(0x17b), _0x87f936(0x1f9), _0x87f936(0x202), 'rabbit', _0x87f936(0x1c3), _0x87f936(0x1db), _0x87f936(0x18b), _0x87f936(0x1f7), _0x87f936(0x1d4), _0x87f936(0x1ed), _0x87f936(0x1a0), _0x87f936(0x207), _0x87f936(0x17c), 'parrot', _0x87f936(0x1e8), _0x87f936(0x1bb), _0x87f936(0x1ae), _0x87f936(0x1a3), _0x87f936(0x1df), _0x87f936(0x191), _0x87f936(0x1b2), _0x87f936(0x1dc), _0x87f936(0x215), _0x87f936(0x197), _0x87f936(0x219), _0x87f936(0x218), _0x87f936(0x1c7), _0x87f936(0x184), _0x87f936(0x204), 'angry_panda', 'panther', _0x87f936(0x1bd), _0x87f936(0x1bf), 'wolf_', 'yeti', _0x87f936(0x18d), _0x87f936(0x1ba), _0x87f936(0x1e9), 'croc', _0x87f936(0x1a6), _0x87f936(0x1e1), _0x87f936(0x194), _0x87f936(0x1a5), _0x87f936(0x1b8), _0x87f936(0x200), _0x87f936(0x1b1), 'beast', _0x87f936(0x1da), _0x87f936(0x1fa), _0x87f936(0x181), _0x87f936(0x187), 'drago', 'basilisk', _0x87f936(0x1b5), 'poseidon', _0x87f936(0x1b7), _0x87f936(0x1ee), _0x87f936(0x190), _0x87f936(0x1e0), _0x87f936(0x17e), _0x87f936(0x1fc), _0x87f936(0x198), _0x87f936(0x1d2)];
+      _0x52195c[_0x87f936(0x212)](_0x24f501 => {
+        const _0x56d9f3 = _0x87f936,
+          _0x3ea729 = document['createElement']('option');
+        _0x3ea729[_0x56d9f3(0x19d)] = _0x24f501, _0x3ea729[_0x56d9f3(0x21e)] = _0x24f501, _0x2ded10[_0x56d9f3(0x1b4)](_0x3ea729);
+      }), _0x3e6ff3[_0x87f936(0x1b4)](_0x2ded10);
+      const _0x2c9e03 = document[_0x87f936(0x182)](_0x87f936(0x188));
+      _0x2c9e03['id'] = _0x87f936(0x18c), _0x2c9e03[_0x87f936(0x21e)] = _0x87f936(0x214), _0x3e6ff3[_0x87f936(0x1b4)](_0x2c9e03);
+      const _0x3ed4b0 = document[_0x87f936(0x182)]('button');
+      _0x3ed4b0['id'] = _0x87f936(0x1eb), _0x3ed4b0[_0x87f936(0x21e)] = _0x87f936(0x1aa), _0x3e6ff3['appendChild'](_0x3ed4b0);
 
-    const chatSpamMessage = document.createElement('input');
-    chatSpamMessage.id = 'desired-spam-message';
-    chatSpamMessage.placeholder = 'Input desired message';
-   // setHeartInput.type = 'number';
-    cheatGui.appendChild(chatSpamMessage);
-
-*/
-
-    cheatGui.appendChild(characterSelect);
-   // cheatGui.appendChild(botAmount);
-
-    const setCharacterButton = document.createElement('button');
-    setCharacterButton.id = 'set-character-button';
-    setCharacterButton.innerText = 'Change skin';
-    cheatGui.appendChild(setCharacterButton);
-
-        const openMusicPlayer = document.createElement('button');
-    openMusicPlayer.id = 'open-music-player';
-    openMusicPlayer.innerText = 'Open MusicPlayer';
-    cheatGui.appendChild(openMusicPlayer);
-
-
-    function makeDraggable(element) {
-        let isDragging = false;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        element.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            offsetX = e.clientX - element.getBoundingClientRect().left;
-            offsetY = e.clientY - element.getBoundingClientRect().top;
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
+      function _0x5d7c30(_0x507023) {
+        const _0x411a4d = _0x87f936;
+        let _0x5c082d = ![],
+          _0x515839 = 0x0,
+          _0x124019 = 0x0;
+        _0x507023[_0x411a4d(0x17f)](_0x411a4d(0x1d6), _0x410547 => {
+          const _0x5147b1 = _0x411a4d;
+          _0x5c082d = !![], _0x515839 = _0x410547['clientX'] - _0x507023[_0x5147b1(0x20b)]()[_0x5147b1(0x213)], _0x124019 = _0x410547[_0x5147b1(0x203)] - _0x507023[_0x5147b1(0x20b)]()[_0x5147b1(0x1dd)], document[_0x5147b1(0x17f)](_0x5147b1(0x1a7), _0x5a5486), document['addEventListener'](_0x5147b1(0x1c4), _0x98d34f);
         });
 
-        function onMouseMove(e) {
-            if (isDragging) {
-                const x = e.clientX - offsetX;
-                const y = e.clientY - offsetY;
-                element.style.left = `${x}px`;
-                element.style.top = `${y}px`;
-            }
+        function _0x5a5486(_0x1a8d1c) {
+          const _0x93176 = _0x411a4d;
+          if (_0x5c082d) {
+            const _0x4d2f9a = _0x1a8d1c[_0x93176(0x1cb)] - _0x515839,
+              _0x163a66 = _0x1a8d1c[_0x93176(0x203)] - _0x124019;
+            _0x507023[_0x93176(0x1f5)][_0x93176(0x213)] = _0x4d2f9a + 'px', _0x507023[_0x93176(0x1f5)][_0x93176(0x1dd)] = _0x163a66 + 'px';
+          }
         }
 
-        function onMouseUp() {
-            isDragging = false;
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+        function _0x98d34f() {
+          const _0x5c41e5 = _0x411a4d;
+          _0x5c082d = ![], document[_0x5c41e5(0x193)](_0x5c41e5(0x1a7), _0x5a5486), document[_0x5c41e5(0x193)]('mouseup', _0x98d34f);
         }
+      }
+      _0x5d7c30(_0x3e6ff3);
+      let _0x3a507a = 0x0,
+        _0x530a0a = '❤️';
+
+      function _0x6daf91() {
+        const _0x2a8e07 = _0x87f936,
+          _0x35b2d4 = document[_0x2a8e07(0x21b)](_0x2a8e07(0x189));
+        _0x35b2d4 && (_0x35b2d4['innerText'] = _0x3a507a);
+      }
+
+      function _0x34eab9(_0x346846) {
+        const _0x3460ac = _0x87f936;
+        _0x530a0a = _0x346846;
+        const _0x2314ce = document[_0x3460ac(0x21b)](_0x3460ac(0x1b6));
+        _0x2314ce && (_0x2314ce[_0x3460ac(0x21e)] = _0x530a0a);
+      }
+
+      function _0x4f63cc() {
+        const _0x39405d = _0x87f936,
+          _0x995184 = document[_0x39405d(0x1be)](_0x39405d(0x211));
+        _0x995184[_0x39405d(0x212)](_0x2a6a85 => {
+          const _0x42a790 = _0x39405d,
+            _0x56132b = parseInt(_0x2a6a85[_0x42a790(0x21e)][_0x42a790(0x19a)]('Cost:\x20', '')[_0x42a790(0x19a)](_0x42a790(0x1a9), ''));
+          _0x3a507a >= _0x56132b && (_0x3a507a -= _0x56132b);
+        }), _0x6daf91();
+      }
+      document[_0x87f936(0x21b)](_0x87f936(0x1ac))[_0x87f936(0x17f)]('click', () => {
+        const _0x42c174 = _0x87f936,
+          _0x842a03 = document[_0x42c174(0x21b)]('set-heart-input')[_0x42c174(0x19d)];
+        localStorage['setItem'](_0x42c174(0x1e4), _0x842a03), location[_0x42c174(0x20e)](), !isNaN(_0x842a03) && (_0x3a507a = _0x842a03, _0x6daf91());
+      }), document[_0x87f936(0x21b)]('open-music-player')['addEventListener']('click', _0x286df5), document[_0x87f936(0x21b)](_0x87f936(0x18c))[_0x87f936(0x17f)]('click', () => {
+        const _0x472d67 = _0x87f936,
+          _0x20b536 = document[_0x472d67(0x21b)](_0x472d67(0x1ce))[_0x472d67(0x19d)];
+        localStorage['setItem']('config-skin', _0x20b536), localStorage['setItem']('config-skin-type', 'premium'), location[_0x472d67(0x20e)](), _0x20b536 && _0x34eab9(_0x20b536);
+      });
+
+      function _0x13df81(_0x3af0d8, _0x3bc099, _0x1cf5e9) {
+        const _0x2b5236 = _0x87f936,
+          _0x463c38 = document[_0x2b5236(0x182)](_0x2b5236(0x188));
+        _0x463c38['id'] = _0x3af0d8, _0x463c38[_0x2b5236(0x21e)] = _0x3bc099, _0x463c38[_0x2b5236(0x17f)](_0x2b5236(0x1f0), _0x1cf5e9), _0x3e6ff3['appendChild'](_0x463c38);
+      }
     }
-
-    makeDraggable(cheatGui);
-
-    // Game state variables
-    let heartCount = 0;
-    let currentHeart = '❤️';
-
-    // Update heart count display
-    function updateHeartCount() {
-        const heartCountElement = document.getElementById('heart-count');
-        if (heartCountElement) {
-            heartCountElement.innerText = heartCount;
-        }
-    }
-
-    // Change heart character
-    function changeHeartCharacter(newHeart) {
-        currentHeart = newHeart;
-        const clicker = document.getElementById('clicker');
-        if (clicker) {
-            clicker.innerText = currentHeart;
-        }
-    }
-
-    // Apply upgrades
-    function applyUpgrade() {
-        const upgrades = document.querySelectorAll('#shop button[id^="buy-upgrade"]');
-        upgrades.forEach(button => {
-            const cost = parseInt(button.innerText.replace('Cost: ', '').replace(' Hearts', ''));
-            if (heartCount >= cost) {
-                heartCount -= cost;
-                // Implement specific upgrade logic here
-            }
-        });
-        updateHeartCount();
-    }
-
-    // Event handlers
-    document.getElementById('set-heart-button').addEventListener('click', () => {
-        const heartAmount = (document.getElementById('set-heart-input').value);
-        localStorage.setItem("config-username", heartAmount);
-        location.reload()
-        if (!isNaN(heartAmount)) {
-            heartCount = heartAmount;
-            updateHeartCount();
-        }
-    });
-
-
-
-        document.getElementById('open-music-player').addEventListener('click', addMusicPlayer);
-
-
-
-
-    document.getElementById('set-character-button').addEventListener('click', () => {
-        const selectedCharacter = document.getElementById('character-select').value;
-        localStorage.setItem("config-skin", selectedCharacter);
-        localStorage.setItem("config-skin-type", "premium");
-location.reload()
-        if (selectedCharacter) {
-            changeHeartCharacter(selectedCharacter);
-        }
-    });
-
-
-    function addCheatButton(buttonId, buttonText, onClick) {
-        const button = document.createElement('button');
-        button.id = buttonId;
-        button.innerText = buttonText;
-        button.addEventListener('click', onClick);
-        cheatGui.appendChild(button);
-    }
-
- }
-}
-
-
-
-
-})();
+  }
+}()));
