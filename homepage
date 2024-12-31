@@ -1,0 +1,101 @@
+    if (homepage) {
+
+        //WHITELIST CHECK
+
+console.log(IDwhitelist);
+
+             if(IDwhitelist === 1233293){
+        alert("Welcome, bro d123450789");
+
+    } else if (IDwhitelist === 1253538) {
+        alert("Welcome, tester");
+
+            } else if (IDwhitelist === 51259) {
+        alert("Welcome, tester ( Apexx Savagekid )");
+
+
+} else {
+    alert("Sorry, you are not a tester! If you have questions, or want to become a tester! Join the discord.")
+    return false;
+
+}
+
+
+        /*
+             if(IDwhitelist === 1243086){
+        alert("Welcome, tester");
+
+                 if(IDwhitelist === 1253538){
+        alert("Welcome, apexxx");
+
+} else {
+    alert("Sorry, you are not a tester! If you have questions, or want to become a tester! Join the discord.")
+}
+}
+*/
+
+    // if(accessTokenIdParse == "1243086"){
+     //   alert("ok");
+  //  }
+//window.onload = parseTokenID();
+
+
+    //Load scripts
+
+            //Friends settings
+
+    GM_xmlhttpRequest({url: 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/friends_updatelocation', onload: (data) => {
+        eval(data.responseText);
+    }});
+
+        //Shop settings
+
+ GM_xmlhttpRequest({url: 'https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/shop_updatelocation', onload: (data) => {
+        eval(data.responseText);
+    }});
+
+
+                 //  document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner > div > a:nth-child(2)").click();
+
+    //New styles
+
+   //     document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner").element.style.display = "block";
+
+       document.querySelector("body > app-root > app-main > div.wrapper > article > div > ul > li:nth-child(1) > img").src = "https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240";
+       document.querySelector("body > app-root > app-main > div.wrapper > article > div > ul > li:nth-child(1)").style.backgroundImage = 'none';
+
+    var video33 = document.createElement('video');
+    video33.src = 'https://cdn-cf-east.streamable.com/video/mp4/k3ej6w.mp4?Expires=1735911001964&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=KQvkfRuW~w~IUgU585wUE0AkJxeqAk0~Y1owCxeztOUDlglili1ye3mVRE~A8pRBKRnyfYKSvEPnlkoc8XLD7eppJRtZ7uX6as~SaVCt0HXQvPzfC010rmk7KemA3xNinwW5O9kcsSfSUHRhmrM5PKvZnjXe2jQK187nbg9zPcDGUn80eLyfWkVjsE-cDQ4FAH9VJ-S2MQahhJcQCceSnwRAY-a6vtkLu-wVMfM~mUJYlmmlf60fXXnCTTlA2gvbN0k4CllaRVmRWdufiUElqnCE~rc2y6fDJc~ACtzNovvbk68kzWLxQ9B8DNkWA3DVUEuFF7maB766hymn4N-tLg__';
+    video33.loop = true;
+    video33.muted = true;
+    video33.autoplay = true;
+   // video.start = true;
+    video33.style.position = 'fixed';
+    video33.overflow = 'auto';
+    video33.style.top = '0';
+    video33.style.left = '0';
+    video33.style.width = '100%';
+    video33.style.height = '100%';
+    video33.style.objectFit = 'cover';
+    video33.style.zIndex = '0';
+    video33.style.pointerEvents = 'none';
+
+    document.querySelector("body > app-root > app-main > div.wrapper > article > div > ul > li:nth-child(1)").appendChild(video33);
+
+
+        function editHexaDialog()
+        {
+console.log("clicked hexa dialog")
+            document.querySelector("#info-modal > app-info > div > div.title").innerText = "Join the ◦♡°Discord°♡◦ !";
+            document.querySelector("#info-modal > app-info > div > img").src = "https://cdn.discordapp.com/icons/1286168636586987580/57b3fc6cff46194b5af46da57bf4088a.webp?size=240";
+            document.querySelector("#info-modal > app-info > div > a").href = "https://discord.gg/VmZSq38Zs8";
+            document.querySelector("#info-modal > app-info > div > a").innerText = "Automatically updates! :) ";
+
+        //    document.getElementsByClassName("mus-conv icon-button pulse").style.backgroundImage = "url('http://www.pxleyes.com/images/contests/kiwis/fullsize/sourceimage.jpg')";
+
+        }
+
+        var bra = document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner > div > a:nth-child(2)").addEventListener("click", editHexaDialog);
+                   document.querySelector("body > app-root > app-main > div.wrapper > footer > div.partner > div > a:nth-child(2)").click();
+
+}
