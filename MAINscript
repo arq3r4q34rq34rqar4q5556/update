@@ -1,4 +1,5 @@
-
+(function() {
+    'use strict';
 var homepage = !!location.href.match('https://blobgame.io/');
 var gameactivity = !!location.href.match(/custom.client.blobgame.io/);
  //   gameactivity.exclude ('http://custom.client.blobgame.io/?ip=51.195.60.134:4701');
@@ -609,6 +610,7 @@ location.reload()
 
  }
 }
+    })();
 
 
 
