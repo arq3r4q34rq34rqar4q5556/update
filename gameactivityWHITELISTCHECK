@@ -1,8 +1,0 @@
-console.log(IDwhitelist);
-
-             if(IDwhitelist === 1233293){
-        console.log("Welcome, ADMIN d123450789");
-} else if (IDwhitelist === 1243086) {
-        console.log("Welcome, test account");
-    } else if (IDwhitelist === 1253538) {
-        console.log("Welcome, apexx");
