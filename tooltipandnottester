@@ -1,0 +1,94 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 62.5%;
+  color: #fff;
+  background-image: linear-gradient(
+    375deg,
+    rgb(28, 199, 208),
+    rgb(46, 222, 152)
+  );
+}
+
+.iconscontainer {
+  position: relative;
+  margin: 0 5em;
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  .icon {
+    position: relative;
+    display: flex;
+    width: 150px;
+    height: 150px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
+
+    .fa-github {
+      font-size: 4rem;
+      background-image: linear-gradient(
+    375deg,
+    rgb(28, 199, 208),
+    rgb(46, 222, 152)
+  );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    span {
+      position: absolute;
+      top: 60%;
+      margin-top: 10px;
+      padding: .55rem 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      white-space: nowrap;
+      color: #000;
+      border-radius: 50px;
+      background-color: #fff;
+      box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.07);
+
+      pointer-events: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+    }
+    &:hover {
+      span {
+        top: 100%;
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+h1 {
+  font-size: 2rem
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
