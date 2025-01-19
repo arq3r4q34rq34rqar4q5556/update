@@ -1,0 +1,192 @@
+#ifdef GL_ES
+#define LOWP lowp
+precision mediump float;
+#else
+#define LOWP
+#endif
+
+varying LOWP vec4 v_color;
+varying vec2 v_texCoords;
+
+varying float v_scale;  //jelly physics, to adjust crop and border radius
+
+uniform sampler2D u_texture;
+
+//RED AREA
+uniform float u_curRadius;
+uniform vec2 u_curPos;
+
+uniform float u_nextRadius;
+uniform vec2 u_nextPos;
+uniform float u_raBorderWidth;
+uniform int u_keepTexture;  //keep texture druing red area drawing
+
+uniform float u_time;
+
+const vec2 CENTER_COORD = vec2(0.5, 0.5);
+
+//SKIN BORDER
+//radius = 0.388; makes you look small
+float RADIUS = 0.488;
+//border 0.22; Block.io makes you look like a block
+//border 0.001; removes border
+float BORDER = 0.001;
+float SOFTNESS = 0.005;
+// eps 0.08; idk looks cool
+const float eps = 0.03;
+
+// determine cell type by alpha
+const float HAS_BORDER = 0.95;
+const float RED_AREA = 0.90; // draw red area
+//nocrop 0.88 = no nicknames
+const float NO_CROP = 0.85; //disable circle crop (used for nicknames)
+const float RAINBOW = 0.80;
+const float EMPTY_CELL = 0.75;
+
+
+float div = 1.5; //offset to adjust image cropping and border width
+
+void drawRedArea() {
+//red circle for read rea
+    float len, alpha;
+
+    //green circle for safe area
+    len = length(u_nextPos - v_texCoords);
+    alpha = 1.0 + smoothstep(u_nextRadius, u_nextRadius + u_raBorderWidth, len)
+            - smoothstep(u_nextRadius - u_raBorderWidth, u_nextRadius, len);
+
+    if (u_keepTexture == 1) {
+        gl_FragColor = texture2D(u_texture, v_texCoords);
+    } else {
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 0.0);
+    }
+
+    gl_FragColor = mix(vec4(0.0, 1.0, 0.0, 0.6), gl_FragColor, alpha);
+
+    //fill red area
+    len = length(u_curPos - v_texCoords);
+    alpha = step(u_curRadius, len);
+    gl_FragColor = mix(gl_FragColor,vec4(1.0, 0.0, 0.0, 0.7),  alpha * 0.7);
+
+    alpha = 1.0 + smoothstep(u_curRadius, u_curRadius + u_raBorderWidth, len)
+            - smoothstep(u_curRadius - u_raBorderWidth, u_curRadius, len);
+
+    //red area border
+    gl_FragColor = mix(vec4(1.0, 0.0, 0.0, 1.0), gl_FragColor, alpha);
+
+    if (u_keepTexture == 1) {
+        gl_FragColor.a = 0.4;
+    }
+}
+
+void drawEmptyCell() {
+
+    float len = length(CENTER_COORD - v_texCoords);
+
+    vec4 borderColor = vec4(0.84, 0.84, 0.84, 1.0);
+    vec4 fillColor = vec4(1.0, 1.0, 1.0, 1.0);
+    vec4 v_color2 = vec4(v_color);
+    v_color2.a = 1.0;
+
+    vec4 color;
+    if (len < 0.5){
+        color = borderColor;
+        if (len  < 0.5 * 0.954) {
+            color = fillColor;
+        }
+    } else {
+        color = vec4(0.0, 0.0, 0.0, 0.0);
+    }
+
+    gl_FragColor = color * v_color2;
+}
+
+void main()
+{
+    //draw red overlay for Battler Royal
+    if (abs(v_color.a - RED_AREA) < eps) {
+        drawRedArea();
+        return;
+    }
+
+    float scale = v_scale;
+    RADIUS -= scale;
+
+    vec4 texColor = texture2D(u_texture, v_texCoords);
+    bool needBorder = (abs(v_color.a - HAS_BORDER) < eps);
+    bool disableCircleCrop = (abs(v_color.a - NO_CROP) < eps);
+    bool rainbow = (abs(v_color.a - RAINBOW) < eps);
+    bool emptyCell = (abs(v_color.a - EMPTY_CELL) < eps);
+
+    if (emptyCell){
+        drawEmptyCell();
+        return;
+    }
+
+    if (rainbow) {
+        needBorder = true;
+    }
+
+    if (disableCircleCrop) {
+        vec4 color = vec4(v_color.r, v_color.g, v_color.b, 1.0);
+        gl_FragColor =  texColor * color;
+        return;
+    }
+
+    if (!needBorder) {
+        float len = length(CENTER_COORD - v_texCoords);
+        gl_FragColor = (smoothstep(RADIUS+BORDER/div, RADIUS+BORDER/div-SOFTNESS, len)) * texColor * v_color;
+    } else { //add border and crop image to circle
+        float len = length(CENTER_COORD - v_texCoords);
+
+        bool red = v_color.r > 0.98 && v_color.g < 0.1 && v_color.b < 0.1; //DUAL
+        vec4 color = v_color;
+
+        if (red) {
+            BORDER *= 2.0;
+            div *= 2.0;
+        }
+        if (rainbow){
+            BORDER *= 1.5;
+            div *= 1.5;
+            color = vec4(vec3(0.5 + 0.5*cos(u_time + v_texCoords.xyx + vec3(0, 2, 4))), 1);
+        }
+        //do it 2 times for more rigid edges
+        float t = 1.0 + smoothstep(RADIUS, RADIUS+BORDER, len)
+                    - smoothstep(RADIUS-BORDER, RADIUS, len);
+        t *= 1.0 + smoothstep(RADIUS, RADIUS+BORDER, len)
+                    - smoothstep(RADIUS-BORDER, RADIUS, len);
+
+        if (red || rainbow) {
+            t *= 1.0 + smoothstep(RADIUS, RADIUS+BORDER, len)
+                             - smoothstep(RADIUS-BORDER, RADIUS, len);
+            t *= 1.0 + smoothstep(RADIUS, RADIUS+BORDER, len)
+                             - smoothstep(RADIUS-BORDER, RADIUS, len);
+            t *= 1.0 + smoothstep(RADIUS, RADIUS+BORDER, len)
+                             - smoothstep(RADIUS-BORDER, RADIUS, len);
+            t *= 1.0 + smoothstep(RADIUS, RADIUS+BORDER, len)
+                             - smoothstep(RADIUS-BORDER, RADIUS, len);
+            t *= 1.0 + smoothstep(RADIUS, RADIUS+BORDER, len)
+                             - smoothstep(RADIUS-BORDER, RADIUS, len);
+        }
+
+        //shrinking jelly physics
+        //for coordinates outside of circle take pixels from circle edge
+        //circle raidus is lower than 0.5 in case if skin cropped bad
+        if (len > 0.49) {
+            vec2 relCoords = v_texCoords - CENTER_COORD;
+            float sc = 0.49 / length(relCoords);
+            relCoords *= sc;
+            relCoords += CENTER_COORD;
+            texColor = texture2D(u_texture, relCoords);
+        }
+
+        //add border on pixel with alpha equals t
+        texColor = mix(color, texColor, t);
+
+        //crop skin to circle
+        texColor = (smoothstep(RADIUS+BORDER/div, RADIUS+BORDER/div-SOFTNESS, len)) * texColor;
+        gl_FragColor =  texColor;
+    }
+}
+
