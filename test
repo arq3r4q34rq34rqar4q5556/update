@@ -1,0 +1,32 @@
+{
+  "with_fb_boost": 170,
+  "next_lvl_exp": 250000000,
+  "id": 777,
+  "reg_time": "09/12/16 15:09",
+  "name": "DEV F0RIS",
+  "surname": "",
+  "photo_url": "http://i.imgur.com/FOd1Y3Z.png",
+  "cur_exp": 70651807,
+  "acum_exp": 0,
+  "lvl": 160,
+  "last_seen": "27/09/21 00:00",
+  "game_time": 11058,
+  "vip": 1,
+  "role": 2,
+  "prv": 1,
+  "sid": "777",
+  "week_result": 144,
+  "del_status": 0,
+  "del_time": null,
+  "records": {
+    "1": 10908,
+    "3": 6554,
+    "4": 10368,
+    "5": 5547,
+    "7": "19/0"
+  },
+  "pos": {
+    "1": 42492,
+    "4": 28910
+  }
+}
