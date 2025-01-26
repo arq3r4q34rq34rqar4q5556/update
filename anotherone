@@ -1,0 +1,148 @@
+{
+    "result": [
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 100,
+            "type_id": 2,
+            "name": "Mass boost x1.5",
+            "desc": "Start the game with x1.5 bigger mass for the next 1 hour!",
+            "price": 300,
+            "dur": 1
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 101,
+            "type_id": 2,
+            "name": "Mass boost x2",
+            "desc": "Start the game with double mass for the next 1 hour!",
+            "price": 500,
+            "dur": 1
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 102,
+            "type_id": 2,
+            "name": "Mass boost x1.5",
+            "desc": "",
+            "price": 1105,
+            "dur": 15
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 103,
+            "type_id": 2,
+            "name": "Mass boost x2",
+            "desc": "",
+            "price": 1430,
+            "dur": 15
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 105,
+            "type_id": 2,
+            "name": "Exp boost x1.5",
+            "desc": "All earned exp multiplies by 1.5 for the next 1 hour!",
+            "price": 300,
+            "dur": 1
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 106,
+            "type_id": 2,
+            "name": "Exp boost x2",
+            "desc": "All earned exp multiplies by 2 for the next 1 hour!",
+            "price": 500,
+            "dur": 1
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 110,
+            "type_id": 3,
+            "name": "Free coins",
+            "desc": "Get 5-40 coins for free every 1 hour!",
+            "price": 0,
+            "dur": 1
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 222,
+            "type_id": 1,
+            "name": "foxx",
+            "desc": "",
+            "price": 5140,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 227,
+            "type_id": 1,
+            "name": "tigerpattern",
+            "desc": "",
+            "price": 650,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 249,
+            "type_id": 1,
+            "name": "ufo",
+            "desc": "",
+            "price": 1300,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 256,
+            "type_id": 1,
+            "name": "greenman",
+            "desc": "",
+            "price": 650,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 280,
+            "type_id": 1,
+            "name": "smileface",
+            "desc": "",
+            "price": 1600,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 337,
+            "type_id": 1,
+            "name": "white_owl",
+            "desc": "",
+            "price": 6390,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 1828,
+            "type_id": 1,
+            "name": "ny_elf",
+            "desc": "",
+            "price": 3790,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 505,
+            "type_id": 1,
+            "name": "flame_eye",
+            "desc": "",
+            "price": 36000,
+            "dur": 0
+        },
+        {
+            "end_date": "0000-00-00 00:00:00",
+            "id": 4002,
+            "type_id": 1,
+            "name": "kraken_mom",
+            "desc": "",
+            "price": 13500,
+            "dur": 0
+        }
+    ]
+}
