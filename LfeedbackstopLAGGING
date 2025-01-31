@@ -1,0 +1,113 @@
+@import compass
+
+// Google Roboto Font
+@import url("https://fonts.googleapis.com/css?family=Roboto:200,400,500,300")
+// background
+body
+  // hex of codepen bg :)
+  background: #343338
+// reset h1 and p
+h1, p
+  margin: 0px
+  padding: 0px
+  line-height: normal
+  font-family: 'roboto'
+  border: 1px 0px 1px 1px solid #eee
+// reset ul
+ul
+  list-style: none
+  margin: 0
+// main classes.
+.feedback
+  background: #fff
+  width: 415px
+  height: 440px
+  +border-radius(3px)
+  margin: 50px auto
+  +box-shadow(0 0 3px #555)
+  padding: 15px
+  h1
+    font-size: 1.2em
+    color: #336699
+    font-weight: 500
+    line-height: 1
+    margin-bottom: 10px
+  p
+    font-size: 0.75em 
+    margin-bottom: 5px
+    
+  ul.type
+    li
+      display: inline-block
+      margin-right: 5px
+      &:last-child
+        margin-right: 0
+      &.active
+        a
+          background: #336699
+          color: white
+          position: relative          
+          &:after
+            top: 100%
+            left: 50%
+            border: solid transparent
+            content: " "
+            height: 0
+            width: 0
+            position: absolute
+            pointer-events: none
+            border-color: rgba(136, 183, 213, 0)
+            border-top-color: #336699
+            border-width: 5px
+            margin-left: -5px
+    a
+      background: #f1f1f1
+      padding: 5px
+      +border-radius(3px)
+      font-size: 0.8em
+      color: #555
+      &:hover
+        background: #336699
+        color: white
+      i
+        margin-right: 2px
+    &.speed
+      li
+        &:first-child
+          a
+            &:hover
+              background: #57a854
+              color: white
+        &:nth-child(2)
+          a
+            &:hover
+              background: #208cb6
+              color: white
+        &:last-child
+          a
+            &:hover
+              background: #f65b4f
+              color: white
+    
+  .form
+    margin-top: 10px
+    textarea
+      min-height: 150px
+      resize: none
+    input, textarea
+      
+      +border-radius(3px)
+      +box-shadow(none)
+      border: 1px solid #e6e6e6
+    
+  button.success
+    padding: 10px 15px
+    background: #339966
+    margin-top: 20px
+      
+      
+  
+  
+    
+    
+  
