@@ -1,7 +1,24 @@
 body {
-  background: #eaecfa;
+  background: #060D0D;
+}
+{
+	box-sizing: border-box;
 }
 
+.column {
+	float: left;
+	width: 8.33;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+	padding: 5px;
+}
+
+.row::after {
+	content: "";
+	display: table;
+	clear: both;
+}
 .loader {
   width: 250px;
   height: 50px;
