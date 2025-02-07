@@ -1,0 +1,90 @@
+
+.blurred-box{
+  position: relative;
+  width: 450px;
+  height: 450px;
+  transition:all 600ms ease-in-out;
+  top: calc(50% - 225px);
+  left: calc(50% - 225px);
+  /*background: inherit;*/
+  border-radius: 25px;
+  overflow: hidden;
+	background:rgba(255,255,255,0.1);
+	-webkit-backdrop-filter: saturate(180%) blur(10px);
+	backdrop-filter: saturate(180%) blur(10px);
+}
+
+.blurred-box:after{
+/* content: '';*/
+ width: 600px;
+ height: 600px;
+ background: inherit; 
+ position: absolute;
+ left: -25px;
+ right: 0;
+ top: -25px;   
+ bottom: 0;
+ box-shadow: inset 0 0 0 200px rgba(255,255,255,0.05);
+ filter: blur(10px);
+ border-radius:25px;
+}
+
+.blurred-box:before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:transparent;   
+  transition:all 600ms ease-in-out;
+  z-index:10;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
+  border-radius:25px;
+  filter:blur(1px);
+}
+
+.user-login-box{
+  position: absolute;
+	left:50%;
+	top:10%;
+	transform:translate(-50%,0%);
+  text-align: center;
+  z-index: 1;
+}
+.user-login-box > *{
+  display: inline-block;
+  width: 200px;
+}
+
+.user-icon{
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border-radius: 50%;
+  background-size: cover;
+  background-image: url(https://kirby.vibell.io/media/pages/home/6e2032a8c8-1665306125/vibellio_portait_alpha.webp);
+}
+
+.user-icon:after{
+  content:"";
+  position:absolute;
+  top:-3%;
+  left:-3%;
+  width:106%;
+  height:106%;
+	background: #0cb8ef;
+	background: -moz-linear-gradient(left,#0cb8ef 0%,#0bf9a9 100%);
+	background: -webkit-linear-gradient(left,#0cb8ef 0%,#0bf9a9 100%);
+	background: linear-gradient(to right,#56E8F7 0%,#6A83F6 50%, #F289FF 100%);
+  border-radius: 50%;
+	transform:rotate(45deg);
+	z-index:-1;
+}
+
+.user-name{
+  margin-top: 25px;
+  margin-bottom: 15px;
+  color: white;
+  font-weight:700;
+}
