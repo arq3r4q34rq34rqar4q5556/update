@@ -614,6 +614,7 @@ DrawingBoard.Board.prototype = {
 				opts.callback();
 			}
 		};
+                img.crossOrigin = 'Anonymous';
 		img.src = src;
 	},
 
