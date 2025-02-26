@@ -278,7 +278,7 @@
         },      
         {
             "id": "wolfycstm",
-            "image_url": "https://client.blobgame.io/skins/premium/wolfy.png",
+            "image_url": "https://corsproxy.io/?url=https://client.blobgame.io/skins/premium/wolfy.png",
             "name": "wolfy2",
             "u_id": 1233293
         },  
