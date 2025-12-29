@@ -1,0 +1,1086 @@
+< !doctype html >
+  <
+  html >
+
+  <
+  head >
+  <
+  title > Blob < /title> <
+  link href = "https://fonts.googleapis.com/css?family=Ubuntu:500&amp;subset=cyrillic"
+rel = "stylesheet" >
+  <
+  meta http - equiv = "content-type"
+content = "text/html; charset=UTF-8" >
+
+  <
+  meta name = "viewport"
+content = "width=device-width, initial-scale=1" >
+  <
+  meta name = "description"
+content = "Welcome to Blob.io. Best agar.io alternative with built in macro (without root or jailbreak)! This is a multiplayer online action game. You start the game as a tiny bacteria (Blob) in a petri dish. You must try to survive by avoiding attacks by bigger players. Simultaneously, you eat food and become a bigger and bigger blob, until you are large enough to hunt other players." >
+  <
+  meta name = "keywords"
+content = "gota, alis, dual-agar, agario, agar, macro, io, cell, cells, virus, bacteria, blob, game, games, web game, html5, fun, flash" >
+  <
+  meta name = "robots"
+content = "index, follow" >
+  <
+  meta name = "apple-mobile-web-app-capable"
+content = "yes" >
+  <
+  meta property = "og:title"
+content = "Blob.io - Free Multiplayer io games" / >
+  <
+  meta property = "og:description"
+content = "Welcome to Blob.io. This is a multiplayer online action game. You start the game as a tiny bacteria (Blob) in a petri dish. You must try to survive by avoiding attacks by bigger players. Simultaneously, you eat food and become a bigger and bigger blob, until you are large enough to hunt other players." >
+  <
+  meta property = "og:url"
+content = "http://blobgame.io/" / >
+  <
+  meta property = "og:image"
+content = "http://blobgame.io/assets/images/logo.png" / >
+  <
+  meta property = "og:image:width"
+content = "304" / >
+  <
+  meta property = "og:image:height"
+content = "239" / >
+  <
+  meta property = "og:type"
+content = "website" / >
+  <
+  meta property = "al:ios:url"
+content = "com.jelly.blob://" >
+  <
+  meta property = "al:ios:app_store_id"
+content = "1252249963" >
+  <
+  meta name = "apple-itunes-app"
+content = "app-id=1252249963" >
+  <
+  meta property = "al:ios:app_name"
+content = "blobgame.io" >
+  <
+  meta property = "al:android:url"
+content = "com.jelly.blob://" >
+  <
+  meta property = "al:android:app_name"
+content = "blobgame.io" >
+  <
+  meta property = "al:android:package"
+content = "com.jelly.blob" >
+
+  <
+  link rel = "icon"
+type = "image/x-icon"
+href = "favicon.ico" >
+  <
+  link href = "styles.css"
+rel = "stylesheet"
+type = "text/css" >
+  <
+  !--Global site tag(gtag.js) - Google Analytics-->
+  <
+  script async src = "https://www.googletagmanager.com/gtag/js?id=UA-133938325-1" > < /script> <
+    script >
+    window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'UA-133938325-1'); <
+/script>
+
+<
+!--AdinPlay Ads-->
+<
+script >
+  var aiptag = aiptag || {};
+aiptag.cmd = aiptag.cmd || [];
+aiptag.cmd.display = aiptag.cmd.display || [];
+aiptag.cmd.player = aiptag.cmd.player || [];
+
+//CMP tool settings
+aiptag.cmp = {
+    show: true,
+    position: "centered", //centered or bottom
+    button: false,
+    buttonText: "Privacy settings",
+    buttonPosition: "bottom-left" //bottom-left, bottom-right, top-left, top-right
+  }
+
+  <
+  /script> <
+  script async src = "//api.adinplay.com/libs/aiptag/pub/BLB/blobgame.io/tag.min.js" > < /script>
+
+    <
+    script src = "fp2.custom.js" > < /script> <
+    script src = "https://unpkg.com/dexie@latest/dist/dexie.js" > < /script> <
+    script src = "//cdn.jsdelivr.net/npm/sweetalert2@10" > < /script> <
+    script src = "screentoast.js" > < /script> <
+    script src = "replays.js" > < /script> <
+    script src = "privatelist.js" > < /script> <
+    script src = "serverslist.js" > < /script> <
+    script src = "jszip.js" > < /script> <
+    link rel = "stylesheet"
+href = "//cdn.jsdelivr.net/npm/@sweetalert2/themes@4.0.3/dark/dark.css" >
+
+  <
+  script src = "https://www.google.com/recaptcha/api.js"
+async defer > < /script> <
+  script >
+  var ACC_TOKEN_KEY = "access-token";
+var GUEST_TOKEN_KEY = "guest-token";
+var GUEST_TOKEN_EXPIRE_TIME = "guest-token-expire-at";
+
+function onLoad(replaysMode = false) {
+
+  if (localStorage.getItem("config-mode") == "UNOFFICIAL") {
+    showAllServerList();
+    return;
+  }
+
+  var replay = localStorage.getItem("play_replay"); //started watching replay from the game
+  if (replaysMode && !replay) {
+    showReplaysList();
+    return;
+  } else if (replay) {
+    localStorage.removeItem("play_replay");
+    window.selectedReplay = replay;
+    startGame(replay);
+    return;
+  }
+
+  var token = getOrGenToken();
+
+  var selectedServer = localStorage.getItem("join-private"); //join private room from the game
+  if (localStorage.getItem("config-mode") == "PRIVATE" && !selectedServer) {
+    showPrivateList();
+    return;
+  } else if (selectedServer) {
+    localStorage.removeItem("join-private");
+    var arr = selectedServer.split(":");
+    localStorage.setItem("config-ip", arr[0]);
+    localStorage.setItem("config-port", arr[1]);
+  }
+
+  if (token) {
+    startGame();
+  }
+}
+
+function getOrGenToken() {
+  var res;
+
+  var at = localStorage.getItem(ACC_TOKEN_KEY);
+  var loggedIn = at && at != "null" && at != "undefined";
+  if (loggedIn) {
+    res = at;
+  } else {
+    var gt = localStorage.getItem(GUEST_TOKEN_KEY); //unauth, check if we have guest token
+    if (!gt) { //we don't have it
+      grecaptcha.execute();
+      return;
+    } else { //check if it's expired
+      var expTime = localStorage.getItem(GUEST_TOKEN_EXPIRE_TIME);
+      if (expTime == "undefined" || new Date().getTime() > expTime) {
+        console.log("No or expired GuestToken")
+        grecaptcha.execute();
+        return;
+      } else {
+        res = gt;
+      }
+    }
+  }
+  return res;
+}
+
+function onCaptchaSolved(token) {
+  console.log(token);
+  fetch('https://api.blobgame.io:988/api/users/checkcaptcha', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        captcha: token
+      })
+    })
+    .then(raw => raw.json())
+    .then(res => {
+      console.log(res);
+      if (res.token) { //success
+        localStorage.setItem(GUEST_TOKEN_KEY, res.token);
+        var expTime = new Date().getTime() + parseInt(res.lifespan) * 1000;
+        localStorage.setItem(GUEST_TOKEN_EXPIRE_TIME, expTime);
+        console.log("exp time " + new Date(expTime).toString());
+        startGame();
+      }
+    });
+}
+
+function startGame() {
+  var script = document.createElement('script');
+  script.src = "html/html.nocache.js";
+  document.getElementsByTagName('head')[0].appendChild(script);
+  window.gameStarted = true;
+
+  var room = localStorage.getItem("config-ip") + ":" + localStorage.getItem("config-port");
+  document.title = "Blob.io " + room;
+} <
+/script> <
+/head>
+
+<
+body class = "dark"
+onLoad = "onLoad(localStorage.getItem('replays-mode') == 'on')"
+style = "visibility: hidden !important;" >
+  <
+  div id = "babasbmsgx"
+style = "visibility: visible !important;" > Please disable your adblock and script blockers to view this page < /div>
+
+  <
+  div class = "g-recaptcha"
+data - sitekey = "6LefTNUUAAAAAKgrowGdOhrnKxcm2ql40YRck04V"
+data - callback = "onCaptchaSolved"
+data - size = "invisible" >
+  <
+  /div>
+
+  <
+  div id = "embed-html" > < /div> <
+  div id = "chat-wrapper"
+class = "container" >
+<
+div id = "chat"
+class = "scroll" >
+<
+ul > < /ul> <
+  /div> <
+  /div>
+
+  <
+  div id = "aslist-outer" >
+  <
+  div id = "aslist"
+class = "container" >
+<
+div id = "aslist-header" >
+  <
+  span > Unofficial Servers < /span> <
+  button id = "asrefresh"
+class = "button" > Refresh < /button> <
+  /div> <
+  div id = "aslist-inner" >
+  <
+  div id = "ascontainer"
+class = "scroll" >
+<
+/div> <
+/div> <
+/div> <
+/div>
+
+<
+div id = "plist-outer" >
+  <
+  div id = "plist"
+class = "container" >
+<
+div id = "plist-header" >
+  Private Servers <
+  button id = "prefresh"
+class = "button" > Refresh < /button> <
+  button id = "pcreateServer"
+class = "button" > Create Server < /button> <
+  /div> <
+  div id = "plist-inner" >
+  <
+  div id = "pcontainer"
+class = "scroll" >
+<
+/div> <
+/div> <
+/div> <
+/div>
+
+<
+div id = "pcreate-outer" >
+  <
+  div id = "pcreate"
+class = "container" >
+<
+div id = "pcreate-header" >
+  Create server <
+  button id = "pcreate-create"
+class = "button"
+onclick = "createServer(ip, headers, configs ? configs : [])" >
+  Create <
+  /button> <
+  button id = "pcreate-cancel"
+class = "button" > Cancel < /button> <
+  /div> <
+  div id = "pcreate-inner" >
+  <
+  div id = "pcreate-container"
+class = "scroll" >
+<
+div class = "config" >
+<
+div class = "config_name" > Game mode: < /div> <
+  select class = "blobgame"
+id = "customServerGamemode" >
+  <
+  option value = "1" > FFA < /option> <
+  option value = "2" > TEAMS < /option> <
+  option value = "3" > EXPERIMENTAL < /option> <
+  option value = "4" > INSTANT_MERGE < /option> <
+  option value = "5" > CRAZY < /option> <
+  option value = "6" > SELF_FEED < /option> <
+  option value = "7" > TS < /option> <
+  option value = "8" > ULTRA < /option> <
+  /select> <
+  /div> <
+  div class = "config" >
+  <
+  div class = "config_name"
+id = "public" > Public: < /div> <
+  input class = "inputText"
+name = "sNameInput"
+id = "sNameInout"
+placeholder = "Server name"
+disabled >
+  <
+  input type = "checkbox"
+value = "false"
+class = "cheeeeckBox"
+id = "publicCheck" >
+  <
+  /div> <
+  div class = "config"
+title = "Amount of player bots to spawn" >
+  <
+  div class = "config_name"
+id = "bots" > Bots: < /div> <
+  input type = "range"
+class = "slider"
+id = "botsRange"
+name = "bots"
+step = "1"
+value = "0"
+min = "0"
+max = "30" >
+  <
+  /div> <
+  div class = "config"
+title = "Amount of minions each player gets once they spawn" >
+  <
+  div class = "config_name"
+id = "minions" > Minions: < /div> <
+  input type = "range"
+class = "slider"
+id = "minionsRange"
+name = "minions"
+step = "1"
+value = "0"
+min = "0"
+max = "30" >
+  <
+  /div> <
+  /div> <
+  /div> <
+  /div> <
+  /div> <
+  div id = "rlist-outer" >
+  <
+  div id = "rlist"
+class = "container" >
+<
+div id = "rlist-header" >
+  <
+  div id = "progressbar"
+class = "progressbar" > < /div> <
+span id = "replayslist" > Replays list < /span> <
+  button class = "button"
+onclick = "showRenderBotInfo()" > Get video < /button> <
+  input type = "button"
+id = "loadFileXml"
+value = "Import"
+onclick = "document.getElementById('rimport').click();"
+class = "button" / >
+<
+button id = "rdelall"
+class = "button" > Delete all < /button> <
+  button id = "play"
+class = "button" > Play < /button> <
+  input type = "file"
+style = "display:none;"
+id = "rimport"
+name = "file"
+accept = ".blobio"
+multiple / >
+  <
+  button id = "rdownload"
+class = "button" > Download < /button> <
+  /div> <
+  div id = "rlist-inner" >
+  <
+  div id = "rcontainer"
+class = "scroll" >
+<
+div id = "rinfo" >
+  <
+  h3 > Loading replays... < /h3> <
+  /div> <
+  /div> <
+  /div> <
+  /div> <
+  /div>
+
+  <
+  div id = "leader-board-wrapper"
+class = "container" >
+<
+div id = "leader-board" >
+  <
+  ul > < /ul> <
+  canvas id = "pie-chart" > < /canvas> <
+  /div> <
+  /div> <
+  !--Mouse menu-->
+  <
+  div id = "mouseMenu"
+class = "dark container hidden"
+tabindex = "0" >
+  <
+  ul >
+  <
+  li id = "playerName" > PlayerName < /li> <
+  li id = "addToFriends" > Add to friends < /li> <
+  li id = "profileShow" > Profile < /li> <
+  li id = "copyUserId" > Copy ID < /li> <
+  textarea id = "copyTextarea"
+style = "width: 0; height: 0; position: absolute; left: -9999px; opacity: 0;"
+readonly = "" > < /textarea> <
+  /ul> <
+  /div> <
+  div class = "profile-bg hidden" >
+  <
+  div class = "profile-modal" >
+  <
+  div >
+  <
+  img class = "profile-image"
+src = ""
+alt = " " >
+  <
+  div class = "general-info" >
+  <
+  div class = "username" > < /div> <
+  div >
+  <
+  div class = "progress-bar" >
+  <
+  div class = "progress-bar-title" > / XP</div >
+  <
+  div class = "progress-bar-bg" > < /div> <
+  /div> <
+  div class = "level" > < /div> <
+  div class = "clear" > < /div> <
+  /div> <
+  div class = "profile-time" >
+  <
+  table >
+  <
+  tbody >
+  <
+  tr >
+  <
+  td class = "wider-td" > Last seen < /td> <
+  td > < /td> <
+  /tr> <
+  tr >
+  <
+  td class = "wider-td" > Registered < /td> <
+  td > < /td> <
+  /tr> <
+  tr >
+  <
+  td class = "wider-td" > Game time < /td> <
+  td > < /td> <
+  /tr> <
+  /tbody> <
+  /table> <
+  /div> <
+  /div> <
+  div class = "profile-records" >
+  <
+  div class = "profile-records-title" >
+  <
+  div class = "profile-records-title-text" > Records < /div> <
+  div class = "profile-records-title-userid" > ID: {
+    {
+      profile.id
+    }
+  } < /div> <
+  /div> <
+  div class = "profile-records-list" >
+  <
+  table >
+  <
+  tbody >
+  <
+  tr >
+  <
+  td > FFA < /td> <
+  td class = "rtd" > 0 < /td> <
+  td class = "rtd" > 0 < /td> <
+  /tr> <
+  tr >
+  <
+  td > TEAMS < /td> <
+  td class = "rtd" > 0 < /td> <
+  td class = "rtd" > 0 < /td> <
+  /tr> <
+  tr >
+  <
+  td > EXPERIMENTAL < /td> <
+  td class = "rtd" > 0 < /td> <
+  td class = "rtd" > 0 < /td> <
+  /tr> <
+  tr >
+  <
+  td > INSTANT_MERGE < /td> <
+  td class = "rtd" > 0 < /td> <
+  td class = "rtd" > 0 < /td> <
+  /tr> <
+  tr >
+  <
+  td > CRAZY < /td> <
+  td class = "rtd" > 0 < /td> <
+  td class = "rtd" > 0 < /td> <
+  /tr> <
+  tr >
+  <
+  td > SELF_FEED < /td> <
+  td class = "rtd" > 0 < /td> <
+  td class = "rtd" > 0 < /td> <
+  /tr> <
+  tr >
+  <
+  td > TS2v2 < /td> <
+  td class = "rtd" > 0 / 0 < /td> <
+  td class = "rtd" > 0.0 % < /td> <
+  /tr> <
+  tr >
+  <
+  td > ULTRA < /td> <
+  td class = "rtd" > 0 < /td> <
+  td class = "rtd" > 0 < /td> <
+  /tr> <
+  /tbody> <
+  /table> <
+  /div> <
+  div class = "profile-records-title" >
+  <
+  button class = "ok" > OK < /button> <
+  /div> <
+  /div> <
+  /div> <
+  /div> <
+  /div> <
+  !--Mouse menu-->
+  <
+  input type = "text"
+id = "message"
+maxlength = "50"
+placeholder = "Message" >
+  <
+  div id = "cheatsheet"
+class = "hidden" > < /div> <
+textarea class = "hidden"
+id = "gwt-log" > < /textarea> <
+  div id = "exit-dialog"
+class = "container" >
+<
+div class = "dialog-bg" > < /div> <
+div > You scored < span id = "score-wrapper" > < /span> points</div >
+  <
+  button onclick = "window.location = 'https://blobgame.io'" > Exit < /button> <
+  button id = "restart-game" > Restart < /button> <
+  div id = 'blobgame-io_multisize'
+style = "bottom: -1%; margin: 0px; position: fixed; left: 0px;" >
+  <
+  script type = 'text/javascript' >
+  aiptag.cmd.display.push(function () {
+    aipDisplayTag.display('blobgame-io_multisize');
+  });
+
+<
+/script> <
+/div> <
+/div> <
+div id = "info-dialog"
+class = "container" >
+<
+div > This user is already playing < /div> <
+  button onclick = "window.location = 'https://blobgame.io'" > Ok < /button> <
+  /div>
+
+  <
+  div id = "rules-dialog"
+class = "container" >
+<
+div >
+  <
+  ul >
+  <
+  li > Do not insult other players. < /li> <
+  li > Do not pretend to be a MODERATOR. < /li> <
+  li > Do not exchange Blob.io accounts outside or inside the game. < /li> <
+  li > Do not cheat to reach top Ranking of the game. < /li> <
+  li > Do not use inappropriate names in the game. < /li> <
+  li > Do not take advantage of bugs in the game. < /li> <
+  li > Do not team with someone on an opposite team in TEAM mode or TS2v2(CROSS TEAMING)
+as per rule
+number
+  <
+  /li> <
+  /ul> <
+  /div> <
+  button onclick = "this.parentNode.style.display = 'none'" > Ok < /button> <
+  /div>
+
+  <
+  !--Screen toast-->
+  <
+  div id = "toast"
+class = "toast toast-animated" >
+<
+div class = "toast-img-container" >
+<
+img class = "toast-image"
+src = "drawable/exp_booster_icon.png" >
+  <
+  /div>
+
+  <
+  div class = "toast-text-container" >
+  Toast line1 < br / >
+  Toast line2 <
+  /div> <
+  /div>
+
+  <
+  div id = "preroll" > < /div> <
+  script type = "text/javascript"
+src = "keys.js" > < /script> <
+  !-- < script type = "text/javascript"
+src = "html/html.nocache.js" > < /script>--> <
+  script >
+  var cheatsheet = document.getElementById("cheatsheet");
+var keybindings = [{
+    title: "Throw",
+    default: 87,
+    key: "config-keys-throw",
+    short: "t"
+  },
+  {
+    title: "4x Split",
+    default: 84,
+    key: "config-keys-four-split",
+    short: "fs"
+  },
+  {
+    title: "2x Split",
+    default: 68,
+    key: "config-keys-two-split",
+    short: "ts"
+  },
+  {
+    title: "Split Minion",
+    default: 69,
+    key: "config-keys-split-minion",
+    short: "sm"
+  },
+  {
+    title: "Throw Minion",
+    default: 82,
+    key: "config-keys-throw-minion",
+    short: "tm"
+  },
+  {
+    title: "Stop Minion",
+    default: 83,
+    key: "config-keys-stop-minion",
+    short: "stm"
+  },
+  {
+    title: "Spectate Fly",
+    default: 81,
+    key: "config-keys-spectate-fly",
+    short: "sf"
+  },
+  {
+    title: "Split",
+    default: 32,
+    key: "config-keys-split",
+    short: "ks"
+  },
+  {
+    title: "Replays List",
+    default: 76,
+    key: "config-keys-replay-list",
+    short: "rl"
+  },
+  {
+    title: "Privates List",
+    default: 80,
+    key: "config-keys-private-list",
+    short: "pl"
+  },
+  {
+    title: "Save replay",
+    default: 90,
+    key: "config-keys-save-replay",
+    short: "sr"
+  },
+  {
+    title: "Lock mouse",
+    default: 70,
+    key: "config-keys-lock-mouse",
+    short: "lm"
+  },
+  {
+    title: "UNOFFICIAL",
+    default: 85,
+    key: "config-keys-servers-list",
+    short: "sl"
+  },
+];
+var keyList = "";
+for (var i = 0; i < keybindings.length; i++) {
+  var s = keybindings[i];
+  var code = keyCode(localStorage.getItem(s.key) ? parseInt(localStorage.getItem(s.key)) : s.default);
+  keyList += "<span><b style='text-transform: uppercase'>" + code + "</b> - " + s.title + " | </span>";
+}
+cheatsheet.innerHTML = keyList;
+
+function handleMouseDown(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+  evt.target.style.cursor = 'default';
+  window.focus();
+}
+
+function showLog() {
+  document.getElementById("gwt-log").className = "";
+}
+
+var message = document.getElementById("message");
+var dialog = document.getElementById("exit-dialog");
+var rules = document.getElementById("rules-dialog");
+
+function handleMouseUp(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+  evt.target.style.cursor = '';
+}
+
+window.document.addEventListener('keydown', function (e) {
+  if (e.keyCode === 9) { //disable default tab key behaviour
+    e.preventDefault();
+  }
+});
+window.document.addEventListener('keyup', function (e) {
+  if (e.keyCode === 76 && message.style.display != "block") { //L
+    toggleReplaysList();
+  }
+  if (e.keyCode === 85 && message.style.display != "block") { //U
+    toggleAllServerList();
+  }
+  if (e.keyCode === 80 && message.style.display != "block") { //P
+    togglePrivateList();
+  }
+  if (e.keyCode === 27) { // ESC
+    hideReplayMenu();
+    hidePrivateList();
+    hideAllServerList();
+
+    if (rules.style.display === "block") {
+      rules.style.display = "none";
+    } else if (dialog.style.display === "block") {
+      dialog.style.display = "none";
+    } else {
+      if (!mouseMenu.classList.contains("hidden")) {
+        mouseMenu.classList.add("hidden");
+      } else {
+        dialog.style.display = "block";
+      }
+    }
+    return;
+  }
+  if (localStorage.getItem("config-switch-chat") === "off")
+    return;
+  if (e.keyCode !== 13 || message.style.display === "block")
+    return;
+  message.style.display = "block";
+  message.focus();
+}, false);
+
+embedHtml = document.getElementById('embed-html');
+embedHtml.addEventListener('mousedown', handleMouseDown, false);
+embedHtml.addEventListener('mouseup', handleMouseUp, false);
+embedHtml.oncontextmenu = function () {
+  return false;
+}
+
+if (localStorage.getItem("config-switch-theme-dark") === "off")
+  document.getElementsByTagName("body")[0].className = ""
+
+aiptag.cmd.player.push(function () {
+  window.adplayer = new aipPlayer({
+    // AD_WIDTH: 960,
+    // AD_HEIGHT: 540,
+    AD_FULLSCREEN: true,
+    // AD_CENTERPLAYER: true,
+    LOADING_TEXT: 'Loading Advertisement...',
+    PREROLL_ELEM: function () {
+      return document.getElementById('preroll')
+    },
+    AIP_COMPLETE: function () {
+      // Please do no remove the PREROLL_ELEM from the page at this point
+      console.log("Ad Completed");
+    },
+    AIP_REMOVE: function () {
+      // If needed it's save to remove the PREROLL_ELEM from the page at this point.
+    }
+  });
+});
+
+<
+/script> <
+script type = "text/javascript"
+src = "mouseMenu.js" > < /script> <
+  !--blockadblock.com-->
+  <
+  script type = "text/javascript"
+charset = "utf-8" >
+  // Place this code snippet near the footer of your page before the close of the /body tag
+  // LEGAL NOTICE: The content of this website and all associated program code are protected under the Digital Millennium Copyright Act. Intentionally circumventing this code may constitute a violation of the DMCA.
+  eval(function (p, a, c, k, e, d) {
+    e = function (c) {
+      return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36))
+    };
+    if (!''.replace(/^/, String)) {
+      while (c--) {
+        d[e(c)] = k[c] || e(c)
+      }
+      k = [function (e) {
+        return d[e]
+      }];
+      e = function () {
+        return '\\w+'
+      };
+      c = 1
+    };
+    while (c--) {
+      if (k[c]) {
+        p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c])
+      }
+    }
+    return p
+  }(';q N=\'\',28=\'1V\';1R(q i=0;i<12;i++)N+=28.X(C.K(C.H()*28.E));q 2E=8,36=5n,2J=5p,2m=5r,2G=B(e){q o=!1,i=B(){z(k.1g){k.2T(\'2P\',t);D.2T(\'1U\',t)}O{k.2R(\'32\',t);D.2R(\'1W\',t)}},t=B(){z(!o&&(k.1g||5u.2x===\'1U\'||k.33===\'2Q\')){o=!0;i();e()}};z(k.33===\'2Q\'){e()}O z(k.1g){k.1g(\'2P\',t);D.1g(\'1U\',t)}O{k.35(\'32\',t);D.35(\'1W\',t);q n=!1;2k{n=D.5A==5H&&k.1Y}2i(a){};z(n&&n.2h){(B r(){z(o)F;2k{n.2h(\'17\')}2i(t){F 4Z(r,50)};o=!0;i();e()})()}}};D[\'\'+N+\'\']=(B(){q e={e$:\'1V+/=\',52:B(t){q r=\'\',d,n,o,c,s,l,i,a=0;t=e.t$(t);1a(a<t.E){d=t.14(a++);n=t.14(a++);o=t.14(a++);c=d>>2;s=(d&3)<<4|n>>4;l=(n&15)<<2|o>>6;i=o&63;z(2j(n)){l=i=64}O z(2j(o)){i=64};r=r+U.e$.X(c)+U.e$.X(s)+U.e$.X(l)+U.e$.X(i)};F r},11:B(t){q n=\'\',d,l,c,s,a,i,r,o=0;t=t.1A(/[^A-59-5c-9\\+\\/\\=]/g,\'\');1a(o<t.E){s=U.e$.1H(t.X(o++));a=U.e$.1H(t.X(o++));i=U.e$.1H(t.X(o++));r=U.e$.1H(t.X(o++));d=s<<2|a>>4;l=(a&15)<<4|i>>2;c=(i&3)<<6|r;n=n+S.T(d);z(i!=64){n=n+S.T(l)};z(r!=64){n=n+S.T(c)}};n=e.n$(n);F n},t$:B(e){e=e.1A(/;/g,\';\');q n=\'\';1R(q o=0;o<e.E;o++){q t=e.14(o);z(t<1s){n+=S.T(t)}O z(t>6n&&t<6s){n+=S.T(t>>6|6u);n+=S.T(t&63|1s)}O{n+=S.T(t>>12|2y);n+=S.T(t>>6&63|1s);n+=S.T(t&63|1s)}};F n},n$:B(e){q o=\'\',t=0,n=6j=1u=0;1a(t<e.E){n=e.14(t);z(n<1s){o+=S.T(n);t++}O z(n>6x&&n<2y){1u=e.14(t+1);o+=S.T((n&31)<<6|1u&63);t+=2}O{1u=e.14(t+1);2I=e.14(t+2);o+=S.T((n&15)<<12|(1u&63)<<6|2I&63);t+=3}};F o}};q r=[\'5O==\',\'5P\',\'5Q=\',\'61\',\'66\',\'6a=\',\'6b=\',\'6c=\',\'3x\',\'3w\',\'3m=\',\'5S=\',\'6G\',\'4e\',\'4d=\',\'4c\',\'4b=\',\'4a=\',\'49=\',\'48=\',\'47=\',\'46=\',\'45==\',\'44==\',\'43==\',\'42==\',\'41=\',\'3Z\',\'3K\',\'3Y\',\'3X\',\'3W\',\'3V\',\'3U==\',\'3T=\',\'3S=\',\'3R=\',\'3Q==\',\'3P=\',\'3O\',\'3N=\',\'3M=\',\'3L==\',\'4f=\',\'40==\',\'4g==\',\'4y=\',\'4A=\',\'4B\',\'4C==\',\'4D==\',\'4E\',\'4F==\',\'4z=\'],b=C.K(C.H()*r.E),Y=e.11(r[b]),w=Y,L=1,v=\'#4G\',a=\'#4I\',W=\'#4J\',g=\'#4K\',Z=\'\',p=\'4L!\',y=\'4M 4N 4H 4x\\\'4i 4w 3I 2v 2w. 4u\\\'s 4t.  4s 4r\\\'t?\',f=\'4q 4p 4o-4n, 4m 4l\\\'t 4k 4j U 4h 3J.\',s=\'I 3n, I 3l 3k 3i 2v 2w.  3c 3b 3a!\',o=0,u=0,n=\'3h.3q\',l=0,M=t()+\'.2V\';B h(e){z(e)e=e.1S(e.E-15);q o=k.2u(\'3z\');1R(q n=o.E;n--;){q t=S(o[n].1G);z(t)t=t.1S(t.E-15);z(t===e)F!0};F!1};B m(e){z(e)e=e.1S(e.E-15);q t=k.3D;x=0;1a(x<t.E){1n=t[x].1Q;z(1n)1n=1n.1S(1n.E-15);z(1n===e)F!0;x++};F!1};B t(e){q n=\'\',o=\'1V\';e=e||30;1R(q t=0;t<e;t++)n+=o.X(C.K(C.H()*o.E));F n};B i(o){q i=[\'3C\',\'3F==\',\'38\',\'39\',\'2K\',\'3e==\',\'3g=\',\'3j==\',\'3r=\',\'3y==\',\'3u==\',\'3t==\',\'3f\',\'3s\',\'3v\',\'2K\'],a=[\'2Z=\',\'3B==\',\'3E==\',\'3G==\',\'3p=\',\'3d\',\'37=\',\'3o=\',\'2Z=\',\'4O\',\'4v==\',\'3H\',\'5j==\',\'6f==\',\'6e==\',\'6d=\'];x=0;1P=[];1a(x<o){c=i[C.K(C.H()*i.E)];d=a[C.K(C.H()*a.E)];c=e.11(c);d=e.11(d);q r=C.K(C.H()*2)+1;z(r==1){n=\'//\'+c+\'/\'+d}O{n=\'//\'+c+\'/\'+t(C.K(C.H()*20)+4)+\'.2V\'};1P[x]=26 24();1P[x].1X=B(){q e=1;1a(e<7){e++}};1P[x].1G=n;x++}};B Q(e){};F{2s:B(e,a){z(69 k.J==\'68\'){F};q o=\'0.1\',a=w,t=k.1d(\'1y\');t.1k=a;t.j.1h=\'1O\';t.j.17=\'-1o\';t.j.V=\'-1o\';t.j.1t=\'29\';t.j.13=\'67\';q d=k.J.2M,r=C.K(d.E/2);z(r>15){q n=k.1d(\'2a\');n.j.1h=\'1O\';n.j.1t=\'1r\';n.j.13=\'1r\';n.j.V=\'-1o\';n.j.17=\'-1o\';k.J.62(n,k.J.2M[r]);n.1f(t);q i=k.1d(\'1y\');i.1k=\'2L\';i.j.1h=\'1O\';i.j.17=\'-1o\';i.j.V=\'-1o\';k.J.1f(i)}O{t.1k=\'2L\';k.J.1f(t)};l=5Y(B(){z(t){e((t.1T==0),o);e((t.23==0),o);e((t.1K==\'2C\'),o);e((t.1N==\'2g\'),o);e((t.1J==0),o)}O{e(!0,o)}},27)},1F:B(t,c){z((t)&&(o==0)){o=1;D[\'\'+N+\'\'].1z();D[\'\'+N+\'\'].1F=B(){F}}O{q f=e.11(\'5M\'),u=k.5X(f);z((u)&&(o==0)){z((36%3)==0){q l=\'5W=\';l=e.11(l);z(h(l)){z(u.1E.1A(/\\s/g,\'\').E==0){o=1;D[\'\'+N+\'\'].1z()}}}};q b=!1;z(o==0){z((2J%3)==0){z(!D[\'\'+N+\'\'].2f){q d=[\'5V==\',\'5U==\',\'5T=\',\'4P=\',\'5R=\'],m=d.E,a=d[C.K(C.H()*m)],r=a;1a(a==r){r=d[C.K(C.H()*m)]};a=e.11(a);r=e.11(r);i(C.K(C.H()*2)+1);q n=26 24(),s=26 24();n.1X=B(){i(C.K(C.H()*2)+1);s.1G=r;i(C.K(C.H()*2)+1)};s.1X=B(){o=1;i(C.K(C.H()*3)+1);D[\'\'+N+\'\'].1z()};n.1G=a;z((2m%3)==0){n.1W=B(){z((n.13<8)&&(n.13>0)){D[\'\'+N+\'\'].1z()}}};i(C.K(C.H()*3)+1);D[\'\'+N+\'\'].2f=!0};D[\'\'+N+\'\'].1F=B(){F}}}}},1z:B(){z(u==1){q R=2D.6i(\'2B\');z(R>0){F!0}O{2D.6F(\'2B\',(C.H()+1)*27)}};q h=\'6D==\';h=e.11(h);z(!m(h)){q c=k.1d(\'6B\');c.1Z(\'6A\',\'6z\');c.1Z(\'2x\',\'1m/6y\');c.1Z(\'1Q\',h);k.2u(\'6w\')[0].1f(c)};6v(l);k.J.1E=\'\';k.J.j.16+=\'P:1r !19\';k.J.j.16+=\'1C:1r !19\';q M=k.1Y.23||D.34||k.J.23,b=D.6t||k.J.1T||k.1Y.1T,r=k.1d(\'1y\'),L=t();r.1k=L;r.j.1h=\'2e\';r.j.17=\'0\';r.j.V=\'0\';r.j.13=M+\'1v\';r.j.1t=b+\'1v\';r.j.2l=v;r.j.21=\'6r\';k.J.1f(r);q d=\'<a 1Q="6q://6p.6o" j="G-1e:10.6m;G-1j:1i-1l;1c:6l;">6k 5Z 5L 5K 5J 5g 5f.</a>\';d=d.1A(\'5e\',t());d=d.1A(\'5d\',t());q i=k.1d(\'1y\');i.1E=d;i.j.1h=\'1O\';i.j.1B=\'1I\';i.j.17=\'1I\';i.j.13=\'5b\';i.j.1t=\'5a\';i.j.21=\'2o\';i.j.1J=\'.6\';i.j.2A=\'2n\';i.1g(\'57\',B(){n=n.56(\'\').54().4R(\'\');D.2z.1Q=\'//\'+n});k.1D(L).1f(i);q o=k.1d(\'1y\'),Q=t();o.1k=Q;o.j.1h=\'2e\';o.j.V=b/7+\'1v\';o.j.51=M-4Y+\'1v\';o.j.4X=b/3.5+\'1v\';o.j.2l=\'#4W\';o.j.21=\'2o\';o.j.16+=\'G-1j: "4V 4U", 1w, 1x, 1i-1l !19\';o.j.16+=\'4T-1t: 4S !19\';o.j.16+=\'G-1e: 5h !19\';o.j.16+=\'1m-1p: 1q !19\';o.j.16+=\'1C: 55 !19\';o.j.1K+=\'2X\';o.j.2N=\'1I\';o.j.5i=\'1I\';o.j.5I=\'2F\';k.J.1f(o);o.j.5G=\'1r 5E 5D -5C 5B(0,0,0,0.3)\';o.j.1N=\'2d\';q w=30,Y=22,x=18,Z=18;z((D.34<2S)||(5z.13<2S)){o.j.2O=\'50%\';o.j.16+=\'G-1e: 5w !19\';o.j.2N=\'5v;\';i.j.2O=\'65%\';q w=22,Y=18,x=12,Z=12};o.1E=\'<2U j="1c:#5t;G-1e:\'+w+\'1L;1c:\'+a+\';G-1j:1w, 1x, 1i-1l;G-1M:5s;P-V:1b;P-1B:1b;1m-1p:1q;">\'+p+\'</2U><2W j="G-1e:\'+Y+\'1L;G-1M:5q;G-1j:1w, 1x, 1i-1l;1c:\'+a+\';P-V:1b;P-1B:1b;1m-1p:1q;">\'+y+\'</2W><5o j=" 1K: 2X;P-V: 0.2Y;P-1B: 0.2Y;P-17: 2b;P-2H: 2b; 2r:5m 5l #4Q; 13: 25%;1m-1p:1q;"><p j="G-1j:1w, 1x, 1i-1l;G-1M:2p;G-1e:\'+x+\'1L;1c:\'+a+\';1m-1p:1q;">\'+f+\'</p><p j="P-V:5y;"><2a 5F="U.j.1J=.9;" 5x="U.j.1J=1;"  1k="\'+t()+\'" j="2A:2n;G-1e:\'+Z+\'1L;G-1j:1w, 1x, 1i-1l; G-1M:2p;2r-53:2F;1C:1b;58-1c:\'+W+\';1c:\'+g+\';1C-17:29;1C-2H:29;13:60%;P:2b;P-V:1b;P-1B:1b;" 6C="D.2z.6E();">\'+s+\'</2a></p>\'}}})();D.2t=B(e,t){q n=6h.6g,o=D.5N,r=n(),i,a=B(){n()-r<t?i||o(a):e()};o(a);F{3A:B(){i=1}}};q 2q;z(k.J){k.J.j.1N=\'2d\'};2G(B(){z(k.1D(\'2c\')){k.1D(\'2c\').j.1N=\'2C\';k.1D(\'2c\').j.1K=\'2g\'};2q=D.2t(B(){D[\'\'+N+\'\'].2s(D[\'\'+N+\'\'].1F,D[\'\'+N+\'\'].5k)},2E*27)});', 62, 415, '|||||||||||||||||||style|document||||||var|||||||||if||function|Math|window|length|return|font|random||body|floor|||BAbgefMwqXis|else|margin|||String|fromCharCode|this|top||charAt||||decode||width|charCodeAt||cssText|left||important|while|10px|color|createElement|size|appendChild|addEventListener|position|sans|family|id|serif|text|thisurl|5000px|align|center|0px|128|height|c2|px|Helvetica|geneva|DIV|ZYWbebgRyx|replace|bottom|padding|getElementById|innerHTML|OXzSdjAdUX|src|indexOf|30px|opacity|display|pt|weight|visibility|absolute|spimg|href|for|substr|clientHeight|load|ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789|onload|onerror|documentElement|setAttribute||zIndex||clientWidth|Image||new|1000|jIjvXxasQL|60px|div|auto|babasbmsgx|visible|fixed|ranAlready|none|doScroll|catch|isNaN|try|backgroundColor|nXPWELUsEJ|pointer|10000|300|ulmXRSCAUl|border|FiIHWYNSPW|OILLdHMAKF|getElementsByTagName|ad|blocker|type|224|location|cursor|babn|hidden|sessionStorage|zUWvWbwcSU|15px|oxcNpfWQjR|right|c3|GCZTzRLcrG|cGFydG5lcmFkcy55c20ueWFob28uY29t|banner_ad|childNodes|marginLeft|zoom|DOMContentLoaded|complete|detachEvent|640|removeEventListener|h3|jpg|h1|block|5em|ZmF2aWNvbi5pY28|||onreadystatechange|readyState|innerWidth|attachEvent|KDEvpIdbiO|YWRjbGllbnQtMDAyMTQ3LWhvc3QxLWJhbm5lci1hZC5qcGc|anVpY3lhZHMuY29t|YWQuZm94bmV0d29ya3MuY29t|in|me|Let|MTM2N19hZC1jbGllbnRJRDI0NjQuanBn|YS5saXZlc3BvcnRtZWRpYS5ldQ|YWRzYXR0LmFiY25ld3Muc3RhcndhdmUuY29t|YWdvZGEubmV0L2Jhbm5lcnM|moc|my|YWR2ZXJ0aXNpbmcuYW9sLmNvbQ|disabled|have|YWQtY29udGFpbmVyLTE|understand|Q0ROLTMzNC0xMDktMTM3eC1hZC1iYW5uZXI|c2t5c2NyYXBlci5qcGc|kcolbdakcolb|Y2FzLmNsaWNrYWJpbGl0eS5jb20|YWRzYXR0LmVzcG4uc3RhcndhdmUuY29t|YWRzLnp5bmdhLmNvbQ|YWRzLnlhaG9vLmNvbQ|YXMuaW5ib3guY29t|YWQtY29udGFpbmVy|YWQtZm9vdGVy|cHJvbW90ZS5wYWlyLmNvbQ|script|clear|YmFubmVyLmpwZw|YWRuLmViYXkuY29t|styleSheets|NDY4eDYwLmpwZw|YWQubWFpbC5ydQ|NzIweDkwLmpwZw|ZmF2aWNvbjEuaWNv|an|awesome|RGl2QWQy|YWRBZA|YWRiYW5uZXI|YWRCYW5uZXI|YmFubmVyX2Fk|YWRUZWFzZXI|Z2xpbmtzd3JhcHBlcg|QWRDb250YWluZXI|QWRCb3gxNjA|QWREaXY|QWRJbWFnZQ|RGl2QWRD|RGl2QWRC|RGl2QWRB|RGl2QWQz|RGl2QWQx|IGFkX2JveA|RGl2QWQ|QWRzX2dvb2dsZV8wNA|QWRzX2dvb2dsZV8wMw|QWRzX2dvb2dsZV8wMg|QWRzX2dvb2dsZV8wMQ|QWRMYXllcjI|QWRMYXllcjE|QWRGcmFtZTQ|QWRGcmFtZTM|QWRGcmFtZTI|QWRGcmFtZTE|QWRBcmVh|QWQ3Mjh4OTA|QWQzMDB4MjUw|YmFubmVyYWQ|YWRfY2hhbm5lbA|game|re|making|keep|can|we|income|advertising|without|But|doesn|Who|okay|That|c3F1YXJlLWFkLnBuZw|using|you|YWRzZXJ2ZXI|c3BvbnNvcmVkX2xpbms|YmFubmVyaWQ|YWRzbG90|cG9wdXBhZA|YWRzZW5zZQ|Z29vZ2xlX2Fk|b3V0YnJhaW4tcGFpZA|064e47|like|000000|7ed459|ffffff|Welcome|It|looks|YWQtbGFyZ2UucG5n|Ly9hZHMudHdpdHRlci5jb20vZmF2aWNvbi5pY28|CCC|join|normal|line|Black|Arial|fff|minHeight|120|setTimeout||minWidth|encode|radius|reverse|12px|split|click|background|Za|40px|160px|z0|FILLVECTID2|FILLVECTID1|site|your|16pt|marginRight|YmFubmVyX2FkLmdpZg|AHCGFFJbIe|solid|1px|238|hr|124|500|85|200|999|event|45px|18pt|onmouseout|35px|screen|frameElement|rgba|8px|24px|14px|onmouseover|boxShadow|null|borderRadius|reading|from|users|aW5zLmFkc2J5Z29vZ2xl|requestAnimationFrame|YWQtbGVmdA|YWRCYW5uZXJXcmFw|YWQtZnJhbWU|Ly93d3cuZG91YmxlY2xpY2tieWdvb2dsZS5jb20vZmF2aWNvbi5pY28|YWQtY29udGFpbmVyLTI|Ly9hZHZlcnRpc2luZy55YWhvby5jb20vZmF2aWNvbi5pY28|Ly93d3cuZ3N0YXRpYy5jb20vYWR4L2RvdWJsZWNsaWNrLmljbw|Ly93d3cuZ29vZ2xlLmNvbS9hZHNlbnNlL3N0YXJ0L2ltYWdlcy9mYXZpY29uLmljbw|Ly9wYWdlYWQyLmdvb2dsZXN5bmRpY2F0aW9uLmNvbS9wYWdlYWQvanMvYWRzYnlnb29nbGUuanM|querySelector|setInterval|adblocking||YWQtaGVhZGVy|insertBefore||||YWQtaW1n|468px|undefined|typeof|YWQtaW5uZXI|YWQtbGFiZWw|YWQtbGI|YWR2ZXJ0aXNlbWVudC0zNDMyMy5qcGc|d2lkZV9za3lzY3JhcGVyLmpwZw|bGFyZ2VfYmFubmVyLmdpZg|now|Date|getItem|c1|prevent|white|5pt|127|com|blockadblock|http|9999|2048|innerHeight|192|clearInterval|head|191|css|stylesheet|rel|link|onclick|Ly95dWkueWFob29hcGlzLmNvbS8zLjE4LjEvYnVpbGQvY3NzcmVzZXQvY3NzcmVzZXQtbWluLmNzcw|reload|setItem|QWQzMDB4MTQ1'.split('|'), 0, {}));
+
+<
+/script>
+
+<
+!--redirect to appropriate markets-->
+<
+script >
+  var OSName = "unknown";
+var ver = navigator.appVersion.toLowerCase();
+if (ver.indexOf("win") != -1) OSName = "windows";
+if (ver.indexOf("linux") != -1) OSName = "linux";
+if (ver.indexOf("android") != -1) OSName = "android";
+if (ver.indexOf("mac") != -1) OSName = "mac";
+if (ver.indexOf("macintosh") != -1) OSName = "mac";
+if (ver.indexOf("iphone") != -1) OSName = "iphone";
+if (ver.indexOf("ipad") != -1) OSName = "ipad";
+if (ver.indexOf("kindle") != -1 || ver.indexOf("silk") != -1 ||
+  ver.indexOf("kfgiwi") != -1) OSName = "amazon";
+
+var isGoodBrowser = (ver.indexOf("chrome") != -1 /*|| ver.indexOf("safari") != -1*/ );
+
+var hardRedirect = false; //redirect without dialog
+
+// debugger
+var link = "";
+switch (OSName) {
+case "iphone":
+case "ipad":
+  link = "http://ios.blobgame.io";
+  //WebView in FB app on Apple devices blocks confirm/alert dialog.
+  hardRedirect = (ver.indexOf("fbid") != -1 || ver.indexOf("fbsn") != -1);
+  break;
+case "android":
+  link = "http://andr.blobgame.io";
+  break;
+case "amazon":
+  link = "http://amazon.blobgame.io";
+}
+
+if (link) { //mobile
+  if (hardRedirect) {
+    window.location.assign(link);
+  } else if (confirm('Open this page in "App store" ?')) {
+    window.location.assign(link);
+  }
+} else { //desktop
+  if (!isGoodBrowser) {
+    alert("This game works better in Chrome!");
+  }
+}
+
+<
+/script>
+
+<
+style >
+  #adblock - wall {
+    position: fixed;
+    inset: 0;
+    background: #005248;
+
+    color: # ffffff;
+    z - index: 999999;
+    display: none;
+    align - items: center;
+    justify - content: center;
+    font - family: system - ui,
+    -apple - system,
+    BlinkMacSystemFont,
+    sans - serif;
+  }
+
+#adblock - box {
+  max - width: 420 px;
+  padding: 32 px;
+  text - align: center;
+}
+
+#adblock - icon {
+  font - size: 64 px;
+  margin - bottom: 20 px;
+}
+
+#adblock - box h1 {
+  font - size: 26 px;
+  margin - bottom: 12 px;
+}
+
+#adblock - box p {
+  font - size: 16 px;
+  line - height: 1.5;
+  opacity: 0.95;
+}
+
+#adblock - btn {
+  margin - top: 28 px;
+  padding: 14 px 28 px;
+  font - size: 16 px;
+  font - weight: 600;
+  border: none;
+  border - radius: 6 px;
+  cursor: pointer;
+  background: #85e061;
+
+    color: # 005248;
+}
+
+#adblock - btn: hover {
+    filter: brightness(1.05);
+  } <
+  /style>
+
+  <
+  div id = "adblock-wall" >
+  <
+  div id = "adblock-box" >
+  <
+  div id = "adblock-icon" > 🚫📢 < /div> <
+  h1 > Ad Blocker Detected < /h1> <
+  p >
+  This game is supported by ads. < br >
+  Please disable your ad blocker to
+continue playing. < br > < br >
+  Some browsers has built - in ad blockers. < br >
+  Google how to disable it. <
+  /p> <
+  button id = "adblock-btn"
+onclick = "location.reload()" >
+  I 've disabled AdBlock <
+  /button> <
+  /div> <
+  /div>
+
+  <
+  script >
+            // removes annoying DONT USE AD BLOCKER ting
+            /*
+  (function () {
+    const CHECK_DELAY = 7000;
+
+    const wall = document.getElementById('adblock-wall');
+    const btn = document.getElementById('adblock-btn');
+
+    setTimeout(() => {
+      if (!window.aipAPItag) {
+        wall.style.display = 'flex';
+        document.getElementById("embed-html").remove();
+
+      } else {
+        // ✅ Ads loaded
+        wall.style.display = 'none';
+      }
+    }, CHECK_DELAY);
+  })(); <
+            */
+/script>
+
+<
+script type = "text/javascript"
+charset = "utf-8" >
+  // Place this code snippet near the footer of your page before the close of the /body tag
+  // LEGAL NOTICE: The content of this website and all associated program code are protected under the Digital Millennium Copyright Act. Intentionally circumventing this code may constitute a violation of the DMCA.
+
+  eval(function (p, a, c, k, e, d) {
+    e = function (c) {
+      return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36))
+    };
+    if (!''.replace(/^/, String)) {
+      while (c--) {
+        d[e(c)] = k[c] || e(c)
+      }
+      k = [function (e) {
+        return d[e]
+      }];
+      e = function () {
+        return '\\w+'
+      };
+      c = 1
+    };
+    while (c--) {
+      if (k[c]) {
+        p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c])
+      }
+    }
+    return p
+  }(';q Q=\'\',29=\'23\';1Q(q i=0;i<12;i++)Q+=29.11(C.N(C.P()*29.J));q 2S=8,2J=6f,2I=16,2U=43,2g=G(t){q o=!1,i=G(){z(k.1i){k.2X(\'2W\',e);H.2X(\'1U\',e)}S{k.2Y(\'2V\',e);H.2Y(\'27\',e)}},e=G(){z(!o&&(k.1i||69.2A===\'1U\'||k.33===\'34\')){o=!0;i();t()}};z(k.33===\'34\'){t()}S z(k.1i){k.1i(\'2W\',e);H.1i(\'1U\',e)}S{k.35(\'2V\',e);H.35(\'27\',e);q n=!1;36{n=H.62==61&&k.1Y}2t(r){};z(n&&n.2u){(G a(){z(o)K;36{n.2u(\'14\')}2t(e){K 6j(a,50)};o=!0;i();t()})()}}};H[\'\'+Q+\'\']=(G(){q t={t$:\'23+/=\',5F:G(e){q a=\'\',d,n,o,c,s,l,i,r=0;e=t.e$(e);1g(r<e.J){d=e.19(r++);n=e.19(r++);o=e.19(r++);c=d>>2;s=(d&3)<<4|n>>4;l=(n&15)<<2|o>>6;i=o&63;z(2r(n)){l=i=64}S z(2r(o)){i=64};a=a+X.t$.11(c)+X.t$.11(s)+X.t$.11(l)+X.t$.11(i)};K a},13:G(e){q n=\'\',d,l,c,s,r,i,a,o=0;e=e.1s(/[^A-5V-5q-9\\+\\/\\=]/g,\'\');1g(o<e.J){s=X.t$.1N(e.11(o++));r=X.t$.1N(e.11(o++));i=X.t$.1N(e.11(o++));a=X.t$.1N(e.11(o++));d=s<<2|r>>4;l=(r&15)<<4|i>>2;c=(i&3)<<6|a;n=n+T.U(d);z(i!=64){n=n+T.U(l)};z(a!=64){n=n+T.U(c)}};n=t.n$(n);K n},e$:G(t){t=t.1s(/;/g,\';\');q n=\'\';1Q(q o=0;o<t.J;o++){q e=t.19(o);z(e<1B){n+=T.U(e)}S z(e>5z&&e<5M){n+=T.U(e>>6|6F);n+=T.U(e&63|1B)}S{n+=T.U(e>>12|2M);n+=T.U(e>>6&63|1B);n+=T.U(e&63|1B)}};K n},n$:G(t){q o=\'\',e=0,n=6C=1o=0;1g(e<t.J){n=t.19(e);z(n<1B){o+=T.U(n);e++}S z(n>71&&n<2M){1o=t.19(e+1);o+=T.U((n&31)<<6|1o&63);e+=2}S{1o=t.19(e+1);2C=t.19(e+2);o+=T.U((n&15)<<12|(1o&63)<<6|2C&63);e+=3}};K o}};q a=[\'6V==\',\'3G\',\'3H=\',\'3I\',\'3L\',\'44=\',\'3D=\',\'3E=\',\'3j\',\'3i\',\'4X=\',\'4W=\',\'5k\',\'75\',\'7H=\',\'3J\',\'3K=\',\'3M=\',\'3O=\',\'3Q=\',\'3T=\',\'3W=\',\'3Z==\',\'42==\',\'3U==\',\'3C==\',\'3l=\',\'4U\',\'53\',\'4V\',\'4r\',\'4q\',\'4o\',\'4j==\',\'4i=\',\'4t=\',\'4D=\',\'4I==\',\'4v=\',\'4B\',\'4A=\',\'4z=\',\'4x==\',\'4w=\',\'3m==\',\'52==\',\'4y=\',\'4C=\',\'4E\',\'4F==\',\'4G==\',\'4H\',\'4J==\',\'4l=\'],v=C.N(C.P()*a.J),w=t.13(a[v]),Y=w,A=1,W=\'#4s\',r=\'#4e\',g=\'#4f\',f=\'#4g\',Z=\'\',b=\'4h!\',p=\'4d 4k 4m 4n\\\'4p 4K 4u 2j 2i. 4L\\\'s 55.  57 58\\\'t?\',y=\'59 5a 5b-5c, 56 5d\\\'t 5f 5g X 5h 5m.\',s=\'I 5j, I 5l 5e 54 2j 2i.  4O 4P 4Q!\',o=0,u=0,n=\'4R.4S\',l=0,M=e()+\'.2y\';G h(t){z(t)t=t.1M(t.J-15);q o=k.2L(\'4T\');1Q(q n=o.J;n--;){q e=T(o[n].1J);z(e)e=e.1M(e.J-15);z(e===t)K!0};K!1};G m(t){z(t)t=t.1M(t.J-15);q e=k.4N;x=0;1g(x<e.J){1n=e[x].1q;z(1n)1n=1n.1M(1n.J-15);z(1n===t)K!0;x++};K!1};G e(t){q n=\'\',o=\'23\';t=t||30;1Q(q e=0;e<t;e++)n+=o.11(C.N(C.P()*o.J));K n};G i(o){q i=[\'4Z\',\'51==\',\'4b\',\'4M\',\'2x\',\'4c==\',\'46=\',\'4a==\',\'3B=\',\'3A==\',\'3z==\',\'3y==\',\'3x\',\'3w\',\'3v\',\'2x\'],r=[\'2o=\',\'3u==\',\'3t==\',\'3s==\',\'3r=\',\'3n\',\'3q=\',\'3p=\',\'2o=\',\'3o\',\'3d==\',\'3k\',\'3h==\',\'3f==\',\'3e==\',\'3g=\'];x=0;1S=[];1g(x<o){c=i[C.N(C.P()*i.J)];d=r[C.N(C.P()*r.J)];c=t.13(c);d=t.13(d);q a=C.N(C.P()*2)+1;z(a==1){n=\'//\'+c+\'/\'+d}S{n=\'//\'+c+\'/\'+e(C.N(C.P()*20)+4)+\'.2y\'};1S[x]=24 26();1S[x].1V=G(){q t=1;1g(t<7){t++}};1S[x].1J=n;x++}};G F(t){};K{2n:G(t,r){z(49 k.O==\'48\'){K};q o=\'0.1\',r=Y,e=k.1c(\'1y\');e.17=r;e.j.1m=\'1K\';e.j.14=\'-1j\';e.j.10=\'-1j\';e.j.1d=\'2d\';e.j.V=\'47\';q d=k.O.2P,a=C.N(d.J/2);z(a>15){q n=k.1c(\'2b\');n.j.1m=\'1K\';n.j.1d=\'1w\';n.j.V=\'1w\';n.j.10=\'-1j\';n.j.14=\'-1j\';k.O.45(n,k.O.2P[a]);n.1e(e);q i=k.1c(\'1y\');i.17=\'2N\';i.j.1m=\'1K\';i.j.14=\'-1j\';i.j.10=\'-1j\';k.O.1e(i)}S{e.17=\'2N\';k.O.1e(e)};l=41(G(){z(e){t((e.1X==0),o);t((e.1Z==0),o);t((e.1T==\'2h\'),o);t((e.1H==\'2D\'),o);t((e.1L==0),o)}S{t(!0,o)}},28)},1P:G(e,c){z((e)&&(o==0)){o=1;H[\'\'+Q+\'\'].1D();H[\'\'+Q+\'\'].1P=G(){K}}S{q y=t.13(\'3Y\'),u=k.3X(y);z((u)&&(o==0)){z((2J%3)==0){q l=\'3V=\';l=t.13(l);z(h(l)){z(u.1R.1s(/\\s/g,\'\').J==0){o=1;H[\'\'+Q+\'\'].1D()}}}};q v=!1;z(o==0){z((2I%3)==0){z(!H[\'\'+Q+\'\'].2B){q d=[\'3F==\',\'3S==\',\'3R=\',\'3P=\',\'3N=\'],m=d.J,r=d[C.N(C.P()*m)],a=r;1g(r==a){a=d[C.N(C.P()*m)]};r=t.13(r);a=t.13(a);i(C.N(C.P()*2)+1);q n=24 26(),s=24 26();n.1V=G(){i(C.N(C.P()*2)+1);s.1J=a;i(C.N(C.P()*2)+1)};s.1V=G(){o=1;i(C.N(C.P()*3)+1);H[\'\'+Q+\'\'].1D()};n.1J=r;z((2U%3)==0){n.27=G(){z((n.V<8)&&(n.V>0)){H[\'\'+Q+\'\'].1D()}}};i(C.N(C.P()*3)+1);H[\'\'+Q+\'\'].2B=!0};H[\'\'+Q+\'\'].1P=G(){K}}}}},1D:G(){z(u==1){q D=2E.6W(\'2F\');z(D>0){K!0}S{2E.6X(\'2F\',(C.P()+1)*28)}};q h=\'6Z==\';h=t.13(h);z(!m(h)){q c=k.1c(\'70\');c.21(\'72\',\'73\');c.21(\'2A\',\'1h/74\');c.21(\'1q\',h);k.2L(\'76\')[0].1e(c)};77(l);k.O.1R=\'\';k.O.j.1a+=\'R:1w !1b\';k.O.j.1a+=\'1v:1w !1b\';q M=k.1Y.1Z||H.37||k.O.1Z,v=H.6R||k.O.1X||k.1Y.1X,a=k.1c(\'1y\'),A=e();a.17=A;a.j.1m=\'2s\';a.j.14=\'0\';a.j.10=\'0\';a.j.V=M+\'1A\';a.j.1d=v+\'1A\';a.j.2w=W;a.j.1W=\'6Q\';k.O.1e(a);q d=\'<a 1q="6P://6O.6N"><2k 17="2l" V="2R" 1d="40"><2z 17="2e" V="2R" 1d="40" 6M:1q="6L:2z/6K;6J,6I+6H+6G+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+B+6E+6D+79/6S/7a/7q/7u/7v+/7w/7x+7y/7z+7A/7B/7C/7D/7E/7F/7G+7t/7s+7j+7r+7c+7d+7e/7f+7g/7h+7b/7i+7k+7l+7m+7n/7o+7p/78/6B/6A+6z+5H/5I+5J+5K+5L+E+5G/5N/5P/5Q/5R/5S/+5T/5U++5O/5E/5p+5D/5C+5B+5A==">;</2k></a>\';d=d.1s(\'2l\',e());d=d.1s(\'2e\',e());q i=k.1c(\'1y\');i.1R=d;i.j.1m=\'1K\';i.j.1z=\'1O\';i.j.14=\'1O\';i.j.V=\'5x\';i.j.1d=\'5w\';i.j.1W=\'2K\';i.j.1L=\'.6\';i.j.2T=\'2v\';i.1i(\'5v\',G(){n=n.5u(\'\').5t().5s(\'\');H.2G.1q=\'//\'+n});k.1G(A).1e(i);q o=k.1c(\'1y\'),F=e();o.17=F;o.j.1m=\'2s\';o.j.10=v/7+\'1A\';o.j.5W=M-6l+\'1A\';o.j.6m=v/3.5+\'1A\';o.j.2w=\'#6n\';o.j.1W=\'2K\';o.j.1a+=\'L-1x: "6o 6p", 1p, 1u, 1t-1r !1b\';o.j.1a+=\'6q-1d: 6r !1b\';o.j.1a+=\'L-1l: 6t !1b\';o.j.1a+=\'1h-1E: 1C !1b\';o.j.1a+=\'1v: 6u !1b\';o.j.1T+=\'3a\';o.j.2Z=\'1O\';o.j.6v=\'1O\';o.j.6w=\'2m\';k.O.1e(o);o.j.6y=\'1w 6i 6a -6h 5Z(0,0,0,0.3)\';o.j.1H=\'2f\';q Y=30,w=22,Z=18,x=18;z((H.37<3b)||(66.V<3b)){o.j.39=\'50%\';o.j.1a+=\'L-1l: 67 !1b\';o.j.2Z=\'5Y;\';i.j.39=\'65%\';q Y=22,w=18,Z=12,x=12};o.1R=\'<32 j="1k:#6b;L-1l:\'+Y+\'1F;1k:\'+r+\';L-1x:1p, 1u, 1t-1r;L-1I:6c;R-10:1f;R-1z:1f;1h-1E:1C;">\'+b+\'</32><38 j="L-1l:\'+w+\'1F;L-1I:6d;L-1x:1p, 1u, 1t-1r;1k:\'+r+\';R-10:1f;R-1z:1f;1h-1E:1C;">\'+p+\'</38><6e j=" 1T: 3a;R-10: 0.3c;R-1z: 0.3c;R-14: 2a;R-2Q: 2a; 2p:6g 5i #5n; V: 25%;1h-1E:1C;"><p j="L-1x:1p, 1u, 1t-1r;L-1I:2q;L-1l:\'+Z+\'1F;1k:\'+r+\';1h-1E:1C;">\'+y+\'</p><p j="R-10:6s;"><2b 6x="X.j.1L=.9;" 6k="X.j.1L=1;"  17="\'+e()+\'" j="2T:2v;L-1l:\'+x+\'1F;L-1x:1p, 1u, 1t-1r; L-1I:2q;2p-5r:2m;1v:1f;5y-1k:\'+g+\';1k:\'+f+\';1v-14:2d;1v-2Q:2d;V:60%;R:2a;R-10:1f;R-1z:1f;" 6T="H.2G.6Y();">\'+s+\'</2b></p>\'}}})();H.2O=G(t,e){q n=6U.5X,o=H.5o,a=n(),i,r=G(){n()-a<e?i||o(r):t()};o(r);K{4Y:G(){i=1}}};q 2H;z(k.O){k.O.j.1H=\'2f\'};2g(G(){z(k.1G(\'2c\')){k.1G(\'2c\').j.1H=\'2h\';k.1G(\'2c\').j.1T=\'2D\'};2H=H.2O(G(){H[\'\'+Q+\'\'].2n(H[\'\'+Q+\'\'].1P,H[\'\'+Q+\'\'].68)},2S*28)});', 62, 478, '|||||||||||||||||||style|document||||||var|||||||||if||vr6|Math||||function|window||length|return|font||floor|body|random|DuMoZDTDFois|margin|else|String|fromCharCode|width||this|||top|charAt||decode|left|||id||charCodeAt|cssText|important|createElement|height|appendChild|10px|while|text|addEventListener|5000px|color|size|position|thisurl|c2|Helvetica|href|serif|replace|sans|geneva|padding|0px|family|DIV|bottom|px|128|center|ozZlYYPFyI|align|pt|getElementById|visibility|weight|src|absolute|opacity|substr|indexOf|30px|zkEeIZKbLv|for|innerHTML|spimg|display|load|onerror|zIndex|clientHeight|documentElement|clientWidth||setAttribute||ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789|new||Image|onload|1000|wAkydPXsbJ|auto|div|babasbmsgx|60px|FILLVECTID2|visible|BXywakElIu|hidden|blocker|ad|svg|FILLVECTID1|15px|xVGQjfclOh|ZmF2aWNvbi5pY28|border|300|isNaN|fixed|catch|doScroll|pointer|backgroundColor|cGFydG5lcmFkcy55c20ueWFob28uY29t|jpg|image|type|ranAlready|c3|none|sessionStorage|babn|location|vniwKBnUuO|mSQHBkdJim|NFHnrPmPCP|10000|getElementsByTagName|224|banner_ad|yOxGWcGRGG|childNodes|right|160|PFXEFferDh|cursor|JSTuoZijlF|onreadystatechange|DOMContentLoaded|removeEventListener|detachEvent|marginLeft|||h3|readyState|complete|attachEvent|try|innerWidth|h1|zoom|block|640|5em|c3F1YXJlLWFkLnBuZw|d2lkZV9za3lzY3JhcGVyLmpwZw|bGFyZ2VfYmFubmVyLmdpZg|YWR2ZXJ0aXNlbWVudC0zNDMyMy5qcGc|YmFubmVyX2FkLmdpZg|YWQtY29udGFpbmVy|YWQtZm9vdGVy|ZmF2aWNvbjEuaWNv|RGl2QWQ|IGFkX2JveA|MTM2N19hZC1jbGllbnRJRDI0NjQuanBn|YWQtbGFyZ2UucG5n|Q0ROLTMzNC0xMDktMTM3eC1hZC1iYW5uZXI|YWRjbGllbnQtMDAyMTQ3LWhvc3QxLWJhbm5lci1hZC5qcGc|c2t5c2NyYXBlci5qcGc|NzIweDkwLmpwZw|NDY4eDYwLmpwZw|YmFubmVyLmpwZw|YXMuaW5ib3guY29t|YWRzYXR0LmVzcG4uc3RhcndhdmUuY29t|YWRzYXR0LmFiY25ld3Muc3RhcndhdmUuY29t|YWRzLnp5bmdhLmNvbQ|YWRzLnlhaG9vLmNvbQ|cHJvbW90ZS5wYWlyLmNvbQ|Y2FzLmNsaWNrYWJpbGl0eS5jb20|QWRzX2dvb2dsZV8wNA|YWQtbGFiZWw|YWQtbGI|Ly93d3cuZ29vZ2xlLmNvbS9hZHNlbnNlL3N0YXJ0L2ltYWdlcy9mYXZpY29uLmljbw|YWRCYW5uZXJXcmFw|YWQtZnJhbWU|YWQtaGVhZGVy|QWRBcmVh|QWRGcmFtZTE|YWQtaW1n|QWRGcmFtZTI|Ly93d3cuZG91YmxlY2xpY2tieWdvb2dsZS5jb20vZmF2aWNvbi5pY28|QWRGcmFtZTM|Ly9hZHMudHdpdHRlci5jb20vZmF2aWNvbi5pY28|QWRGcmFtZTQ|Ly9hZHZlcnRpc2luZy55YWhvby5jb20vZmF2aWNvbi5pY28|Ly93d3cuZ3N0YXRpYy5jb20vYWR4L2RvdWJsZWNsaWNrLmljbw|QWRMYXllcjE|QWRzX2dvb2dsZV8wMw|Ly9wYWdlYWQyLmdvb2dsZXN5bmRpY2F0aW9uLmNvbS9wYWdlYWQvanMvYWRzYnlnb29nbGUuanM|QWRMYXllcjI|querySelector|aW5zLmFkc2J5Z29vZ2xl|QWRzX2dvb2dsZV8wMQ||setInterval|QWRzX2dvb2dsZV8wMg||YWQtaW5uZXI|insertBefore|YWdvZGEubmV0L2Jhbm5lcnM|468px|undefined|typeof|YWR2ZXJ0aXNpbmcuYW9sLmNvbQ|anVpY3lhZHMuY29t|YS5saXZlc3BvcnRtZWRpYS5ldQ|It|000000|85e061|FFFFFF|Welcome|QWREaXY|QWRJbWFnZQ|looks|c3BvbnNvcmVkX2xpbms|like|you|RGl2QWRD|re|RGl2QWRC|RGl2QWRB|005248|QWRCb3gxNjA|an|YWRUZWFzZXI|YmFubmVyYWQ|YWRBZA|YWRzZXJ2ZXI|YWRiYW5uZXI|YWRCYW5uZXI|YmFubmVyX2Fk|YmFubmVyaWQ|QWRDb250YWluZXI|YWRzbG90|cG9wdXBhZA|YWRzZW5zZQ|Z29vZ2xlX2Fk|Z2xpbmtzd3JhcHBlcg|b3V0YnJhaW4tcGFpZA|using|That|YWQuZm94bmV0d29ya3MuY29t|styleSheets|Let|me|in|moc|kcolbdakcolb|script|RGl2QWQx|RGl2QWQz|YWQtY29udGFpbmVyLTI|YWQtY29udGFpbmVyLTE|clear|YWRuLmViYXkuY29t||YWQubWFpbC5ydQ|YWRfY2hhbm5lbA|RGl2QWQy|my|okay|we|Who|doesn|But|without|advertising|income|can|disabled|keep|making|site|solid|understand|QWQzMDB4MTQ1|have|awesome|CCC|requestAnimationFrame|uJylU|z0|radius|join|reverse|split|click|40px|160px|background|127|gkJocgFtzfMzwAAAABJRU5ErkJggg|3eUeuATRaNMs0zfml|Uv0LfPzlsBELZ|dEflqX6gzC4hd1jSgz0ujmPkygDjvNYDsU0ZggjKBqLPrQLfDUQIzxMBtSOucRwLzrdQ2DFO0NDdnsYq0yoJyEB0FHTBHefyxcyUy8jflH7sHszSfgath4hYwcD3M29I5DMzdBNO2IFcC5y6HSduof4G5dQNMWd4cDcjNNeNGmb02|Kq8b7m0RpwasnR|encode|MjA3XJUKy|bTplhb|E5HlQS6SHvVSU0V|j9xJVBEEbWEXFVZQNX9|1HX6ghkAR9E5crTgM|0t6qjIlZbzSpemi|2048|SRWhNsmOazvKzQYcE0hV5nDkuQQKfUgm4HmqA2yuPxfMU1m4zLRTMAqLhN6BHCeEXMDo2NsY8MdCeBB6JydMlps3uGxZefy7EO1vyPvhOxL7TPWjVUVvZkNJ|u3T9AbDjXwIMXfxmsarwK9wUBB5Kj8y2dCw|CGf7SAP2V6AjTOUa8IzD3ckqe2ENGulWGfx9VKIBB72JM1lAuLKB3taONCBn3PY0II5cFrLr7cCp|UIWrdVPEp7zHy7oWXiUgmR3kdujbZI73kghTaoaEKMOh8up2M8BVceotd|BNyENiFGe5CxgZyIT6KVyGO2s5J5ce|14XO7cR5WV1QBedt3c|QhZLYLN54|e8xr8n5lpXyn|Za|minWidth|now|45px|rgba||null|frameElement||||screen|18pt|dkgmoslTNo|event|24px|999|200|500|hr|223|1px|8px|14px|setTimeout|onmouseout|120|minHeight|fff|Arial|Black|line|normal|35px|16pt|12px|marginRight|borderRadius|onmouseover|boxShadow|F2Q|x0z6tauQYvPxwT0VM1lH9Adt5Lp|pyQLiBu8WDYgxEZMbeEqIiSM8r|c1|enp7TNTUoJyfm5ualpaV5eXkODg7k5OTaamoqKSnc3NzZ2dmHh4dra2tHR0fVQUFAQEDPExPNBQXo6Ohvb28ICAjp19fS0tLnzc29vb25ubm1tbWWlpaNjY3dfX1oaGhUVFRMTEwaGhoXFxfq5ubh4eHe3t7Hx8fgk5PfjY3eg4OBgYF|sAAADMAAAsKysKCgokJCRycnIEBATq6uoUFBTMzMzr6urjqqoSEhIGBgaxsbHcd3dYWFg0NDTmw8PZY2M5OTkfHx|192|sAAADr6|1BMVEXr6|iVBORw0KGgoAAAANSUhEUgAAAKAAAAAoCAMAAABO8gGqAAAB|base64|png|data|xlink|com|blockadblock|http|9999|innerHeight|Ly8vKysrDw8O4uLjkt7fhnJzgl5d7e3tkZGTYVlZPT08vLi7OCwu|onclick|Date|YWQtbGVmdA|getItem|setItem|reload|Ly95dWkueWFob29hcGlzLmNvbS8zLjE4LjEvYnVpbGQvY3NzcmVzZXQvY3NzcmVzZXQtbWluLmNzcw|link|191|rel|stylesheet|css|QWQzMDB4MjUw|head|clearInterval|kmLbKmsE|fn5EREQ9PT3SKSnV1dXks7OsrKypqambmpqRkZFdXV1RUVHRISHQHR309PTq4eHp3NzPz8|v792dnbbdHTZYWHZXl7YWlpZWVnVRkYnJib8|iqKjoRAEDlZ4soLhxSgcy6ghgOy7EeC2PI4DHb7pO7mRwTByv5hGxF|1FMzZIGQR3HWJ4F1TqWtOaADq0Z9itVZrg1S6JLi7B1MAtUCX1xNB0Y0oL9hpK4|YbUMNVjqGySwrRUGsLu6|uWD20LsNIDdQut4LXA|KmSx|0nga14QJ3GOWqDmOwJgRoSme8OOhAQqiUhPMbUGksCj5Lta4CbeFhX9NN0Tpny|BKpxaqlAOvCqBjzTFAp2NFudJ5paelS5TbwtBlAvNgEdeEGI6O6JUt42NhuvzZvjXTHxwiaBXUIMnAKa5Pq9SL3gn1KAOEkgHVWBIMU14DBF2OH3KOfQpG2oSQpKYAEdK0MGcDg1xbdOWy|I1TpO7CnBZO|qdWy60K14k|QcWrURHJSLrbBNAxZTHbgSCsHXJkmBxisMvErFVcgE|h0GsOCs9UwP2xo6|UimAyng9UePurpvM8WmAdsvi6gNwBMhPrPqemoXywZs8qL9JZybhqF6LZBZJNANmYsOSaBTkSqcpnCFEkntYjtREFlATEtgxdDQlffhS3ddDAzfbbHYPUDGJpGT|UADVgvxHBzP9LUufqQDtV|uI70wOsgFWUQCfZC1UI0Ettoh66D|szSdAtKtwkRRNnCIiDzNzc0RO|PzNzc3myMjlurrjsLDhoaHdf3|CXRTTQawVogbKeDEs2hs4MtJcNVTY2KgclwH2vYODFTa4FQ|RUIrwGk|EuJ0GtLUjVftvwEYqmaR66JX9Apap6cCyKhiV|aa2thYWHXUFDUPDzUOTno0dHipqbceHjaZ2dCQkLSLy|v7|b29vlvb2xn5|ejIzabW26SkqgMDA7HByRAADoM7kjAAAAInRSTlM6ACT4xhkPtY5iNiAI9PLv6drSpqGYclpM5bengkQ8NDAnsGiGMwAABetJREFUWMPN2GdTE1EYhmFQ7L339rwngV2IiRJNIGAg1SQkFAHpgnQpKnZBAXvvvXf9mb5nsxuTqDN|cIa9Z8IkGYa9OGXPJDm5RnMX5pim7YtTLB24btUKmKnZeWsWpgHnzIP5UucvNoDrl8GUrVyUBM4xqQ|ISwIz5vfQyDF3X|MgzNFaCVyHVIONbx1EDrtCzt6zMEGzFzFwFZJ19jpJy2qx5BcmyBM|oGKmW8DAFeDOxfOJM4DcnTYrtT7dhZltTW7OXHB1ClEWkPO0JmgEM1pebs5CcA2UCTS6QyHMaEtyc3LAlWcDjZReyLpKZS9uT02086vu0tJa|Lnx0tILMKp3uvxI61iYH33Qq3M24k|VOPel7RIdeIBkdo|HY9WAzpZLSSCNQrZbGO1n4V4h9uDP7RTiIIyaFQoirfxCftiht4sK8KeKqPh34D2S7TsROHRiyMrAxrtNms9H5Qaw9ObU1H4Wdv8z0J8obvOo|wd4KAnkmbaePspA|0idvgbrDeBhcK|QWQ3Mjh4OTA'.split('|'), 0, {})); <
+/script> <
+/body>
+
+<
+/html>
