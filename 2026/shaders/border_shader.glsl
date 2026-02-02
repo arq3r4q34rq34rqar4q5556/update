@@ -7,7 +7,6 @@ precision mediump float;
 
 varying LOWP vec4 v_color;
 varying vec2 v_texCoords;
-
 varying float v_scale;  //jelly physics, to adjust crop and border radius
 varying float v_time; // Sigma Client: Receive time from vertex shader
 
@@ -77,7 +76,7 @@ void main()
     vec4 texColor = texture2D(u_texture, v_texCoords);
     bool needBorder = (abs(v_color.a - HAS_BORDER) < eps);
     bool disableCircleCrop = (abs(v_color.a - NO_CROP) < eps);
-    bool rainbow = (abs(v_color.a - RAINBOW) < eps); // We keep this flag to trigger our effect
+    bool rainbow = (abs(v_color.a - RAINBOW) < eps);
     bool emptyCell = (abs(v_color.a - EMPTY_CELL) < eps);
 
     if (emptyCell){ drawEmptyCell(); return; }
@@ -90,30 +89,43 @@ void main()
         // This part is for non-bordered cells (like food), we leave it as is.
         gl_FragColor = (smoothstep(RADIUS+BORDER/div, RADIUS+BORDER/div-SOFTNESS, len)) * texColor * v_color;
     } else { 
-        // --- START: SIGMA CLIENT GLOW EFFECT ---
+        // --- START: SIGMA CLIENT "COSMIC" GLOW V2 ---
 
-        // 1. Create a pulsating animation using time.
-        float pulse = 0.5 + 0.5 * sin(v_time * 5.0);
+        // 1. Define Geometry & Borders
+        float border_width = BORDER * 2.5;
+        float cell_radius = RADIUS - border_width;
+
+        // 2. Create the "Cosmic Aurora" color
+        float aurora_angle = v_time * 0.4 + v_texCoords.y * 15.0;
+        vec3 colorA = vec3(0.1, 0.0, 0.4); // Deep Space Blue
+        vec3 colorB = vec3(0.9, 0.3, 1.0); // Nebula Magenta
+        vec3 aurora_color = mix(colorA, colorB, 0.5 + 0.5 * cos(aurora_angle));
+
+        // 3. Create a sparkling "Stardust" effect
+        float grid_density = 150.0;
+        vec2 star_coords = v_texCoords * grid_density;
+        float star_hash = fract(sin(dot(star_coords, vec2(12.9898, 78.233))) * 43758.5453);
+        float sparkle = pow(max(0.0, star_hash - 0.98), 2.0) * 100.0;
+        float blink = 0.5 + 0.5 * sin(v_time * 3.0 + star_hash * 30.0);
+        vec3 stardust_color = vec3(1.0, 1.0, 0.8) * sparkle * blink;
+
+        // 4. Define the Glow Band
+        float glow_band = smoothstep(cell_radius, cell_radius + SOFTNESS, len) - smoothstep(RADIUS, RADIUS + SOFTNESS, len);
+
+        // 5. Combine effects for the final glow color
+        vec3 final_glow = (aurora_color + stardust_color) * glow_band;
+
+        // 6. Get the cell's main color (from player's choice, passed in v_color)
+        vec4 final_cell_color = v_color;
+
+        // Crop the cell color to a clean circle. The glow will exist outside this crop.
+        float cell_crop = 1.0 - smoothstep(cell_radius, cell_radius + SOFTNESS, len);
+        final_cell_color *= cell_crop;
         
-        // 2. Define the two colors for our animated glow.
-        vec3 colorA = vec3(0.5, 0.1, 1.0); // Vibrant Purple
-        vec3 colorB = vec3(0.1, 0.8, 1.0); // Bright Cyan
-        vec3 glowColor = mix(colorA, colorB, pulse); // Animate between colors.
+        // 7. Combine Cell Color and Glow
+        // Additive blending ensures the glow is AROUND the cell, not ON it.
+        gl_FragColor = vec4(final_cell_color.rgb + final_glow, final_cell_color.a + glow_band);
 
-        // 3. Calculate the rim factor. This determines where the glow appears.
-        // We use smoothstep to create a soft, anti-aliased edge for the glow.
-        float rim = 1.0 - smoothstep(RADIUS - BORDER, RADIUS, len);
-        
-        // 4. Combine the player's color with the texture, then add the glow.
-        vec4 finalColor = texColor * v_color;
-        finalColor.rgb = mix(finalColor.rgb, glowColor, rim);
-        
-        // 5. Crop the entire cell to a circle for a clean look.
-        float circleCrop = 1.0 - smoothstep(RADIUS, RADIUS + SOFTNESS, len);
-        finalColor.a *= circleCrop;
-
-        gl_FragColor = finalColor;
-
-        // --- END: SIGMA CLIENT GLOW EFFECT ---
+        // --- END: SIGMA CLIENT "COSMIC" GLOW V2 ---
     }
 }
