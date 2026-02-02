@@ -72,37 +72,57 @@ void main()
         // This is for food pellets. No changes here.
         gl_FragColor = (smoothstep(RADIUS+BORDER/div, RADIUS+BORDER/div-SOFTNESS, len)) * texColor * v_color;
     } else { 
-        // --- START: SIGMA CLIENT GLOW EFFECT (FOR SKINNED CELLS) ---
+        // --- START: SIGMA CLIENT "COSMIC" GLOW V2 ---
 
-        // 1. Create a pulsating animation using time.
-        float pulse = 0.5 + 0.5 * sin(v_time * 5.0);
-        
-        // 2. Define the two colors for our animated glow.
-        vec3 colorA = vec3(0.5, 0.1, 1.0); // Vibrant Purple
-        vec3 colorB = vec3(0.1, 0.8, 1.0); // Bright Cyan
-        vec3 glowColor = mix(colorA, colorB, pulse); // Animate between colors.
+        // 1. Define Geometry & Borders
+        // We define a smaller radius for the skin, and use the remaining space for the border glow.
+        float border_width = BORDER * 2.5; // Create a nice, thick border area
+        float skin_radius = RADIUS - border_width;
 
-        // 3. Calculate the rim factor, same as border_shader.
-        float rim = 1.0 - smoothstep(RADIUS - BORDER, RADIUS, len);
+        // 2. Create the "Cosmic Aurora" color
+        // Slower, flowing animation for a professional, "spacey" feel.
+        float aurora_angle = v_time * 0.4 + v_texCoords.y * 15.0;
+        vec3 colorA = vec3(0.1, 0.0, 0.4); // Deep Space Blue
+        vec3 colorB = vec3(0.9, 0.3, 1.0); // Nebula Magenta
+        vec3 aurora_color = mix(colorA, colorB, 0.5 + 0.5 * cos(aurora_angle));
 
-        // 4. Shrinking jelly physics: for coordinates outside the circle, take pixels from the edge.
-        if (len > 0.49) {
+        // 3. Create a sparkling "Stardust" effect
+        float grid_density = 150.0;
+        vec2 star_coords = v_texCoords * grid_density;
+        float star_hash = fract(sin(dot(star_coords, vec2(12.9898, 78.233))) * 43758.5453);
+        float sparkle = pow(max(0.0, star_hash - 0.98), 2.0) * 100.0; // Isolate only the brightest "hashes"
+        float blink = 0.5 + 0.5 * sin(v_time * 3.0 + star_hash * 30.0);
+        vec3 stardust_color = vec3(1.0, 1.0, 0.8) * sparkle * blink;
+
+        // 4. Define the Glow Band
+        // This creates a soft band of intensity ONLY in the border area.
+        float glow_band = smoothstep(skin_radius, skin_radius + SOFTNESS, len) - smoothstep(RADIUS, RADIUS + SOFTNESS, len);
+
+        // 5. Combine effects for the final glow color
+        vec3 final_glow = (aurora_color + stardust_color) * glow_band;
+
+        // 6. Get the cell's texture/skin color, cropped to its own radius
+        vec4 final_skin_color;
+        // Jelly physics for skin
+        if (len > skin_radius) {
             vec2 relCoords = v_texCoords - CENTER_COORD;
-            float sc = 0.49 / length(relCoords);
+            float sc = skin_radius / length(relCoords);
             relCoords *= sc;
             relCoords += CENTER_COORD;
-            texColor = texture2D(u_texture, relCoords);
+            final_skin_color = texture2D(u_texture, relCoords);
+        } else {
+            final_skin_color = texColor;
         }
 
-        // 5. Add the glow to the texture color.
-        texColor.rgb = mix(texColor.rgb, glowColor, rim);
+        // Crop the skin to a clean circle. The glow will exist outside this crop.
+        float skin_crop = 1.0 - smoothstep(skin_radius, skin_radius + SOFTNESS, len);
+        final_skin_color *= skin_crop;
+        
+        // 7. Combine Skin and Glow
+        // Additive blending: The cropped skin is drawn on top of the glow.
+        // This ensures the glow is AROUND the skin, not ON it.
+        gl_FragColor = vec4(final_skin_color.rgb + final_glow, final_skin_color.a + glow_band);
 
-        // 6. Crop the final cell to a circle and apply transparency.
-        float circleCrop = 1.0 - smoothstep(RADIUS, RADIUS + SOFTNESS, len);
-        texColor.a *= circleCrop;
-
-        gl_FragColor = texColor;
-
-        // --- END: SIGMA CLIENT GLOW EFFECT ---
+        // --- END: SIGMA CLIENT "COSMIC" GLOW V2 ---
     }
 }
